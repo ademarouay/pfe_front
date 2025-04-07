@@ -1,0 +1,175 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card border-0 shadow-lg" style="min-width: 320px; max-width: 400px;">
+    <!-- En-tête de la carte -->
+    <div class="card-header bg-sky-blue text-white text-center border-0">
+      <h4 class="mb-0 fw-bold">{{ isLoginMode ? 'Connexion' : 'Préinscription' }}</h4>
+    </div>
+
+    <!-- Corps de la carte -->
+    <div class="card-body p-4">
+      <!-- Messages d'erreur et de succès -->
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+      <!-- Formulaire -->
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <!-- Code CNAM -->
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="codeCnam"
+            formControlName="codeCnam"
+            placeholder="Code CNAM"
+            [class.is-invalid]="formControls['codeCnam'].invalid && formControls['codeCnam'].touched"
+          >
+          <label for="codeCnam">Code CNAM</label>
+          <div class="invalid-feedback" *ngIf="formControls['codeCnam'].errors?.['required'] && formControls['codeCnam'].touched">
+            Le code CNAM est requis
+          </div>
+          <div class="invalid-feedback" *ngIf="formControls['codeCnam'].errors?.['pattern'] && formControls['codeCnam'].touched">
+            Le code CNAM doit contenir uniquement des chiffres
+          </div>
+        </div>
+
+        <!-- Champs supplémentaires pour la préinscription -->
+        <ng-container *ngIf="!isLoginMode">
+          <!-- Nom -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="nom"
+              formControlName="nom"
+              placeholder="Nom complet"
+              [class.is-invalid]="formControls['nom'].invalid && formControls['nom'].touched"
+            >
+            <label for="nom">Nom complet</label>
+            <div class="invalid-feedback" *ngIf="formControls['nom'].errors?.['required'] && formControls['nom'].touched">
+              Le nom est requis
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              placeholder="Email"
+              [class.is-invalid]="formControls['email'].invalid && formControls['email'].touched"
+            >
+            <label for="email">Email</label>
+            <div class="invalid-feedback" *ngIf="formControls['email'].errors?.['required'] && formControls['email'].touched">
+              L'email est requis
+            </div>
+            <div class="invalid-feedback" *ngIf="formControls['email'].errors?.['email'] && formControls['email'].touched">
+              Veuillez entrer une adresse email valide
+            </div>
+          </div>
+
+          <!-- Adresse -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="adresse"
+              formControlName="adresse"
+              placeholder="Adresse"
+              [class.is-invalid]="formControls['adresse'].invalid && formControls['adresse'].touched"
+            >
+            <label for="adresse">Adresse</label>
+            <div class="invalid-feedback" *ngIf="formControls['adresse'].errors?.['required'] && formControls['adresse'].touched">
+              L'adresse est requise
+            </div>
+          </div>
+
+          <!-- Rôle -->
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="role"
+              formControlName="role"
+              [class.is-invalid]="formControls['role'].invalid && formControls['role'].touched"
+            >
+              <option value="">Sélectionnez un rôle</option>
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            </select>
+            <label for="role">Rôle</label>
+            <div class="invalid-feedback" *ngIf="formControls['role'].errors?.['required'] && formControls['role'].touched">
+              Le rôle est requis
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Mot de passe -->
+        <div class="form-floating mb-3">
+          <div class="input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="motDePasse"
+              formControlName="motDePasse"
+              placeholder="Mot de passe"
+              [class.is-invalid]="formControls['motDePasse'].invalid && formControls['motDePasse'].touched"
+            >
+            <button 
+              class="btn btn-outline-secondary" 
+              type="button"
+              (click)="togglePasswordVisibility()"
+            >
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+            <label for="motDePasse">Mot de passe</label>
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="getPasswordErrors()">
+            {{ getPasswordErrors() }}
+          </div>
+        </div>
+
+        <!-- Confirmation du mot de passe (préinscription uniquement) -->
+        <div class="form-floating mb-3" *ngIf="!isLoginMode">
+          <div class="input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="confirmMotDePasse"
+              formControlName="confirmMotDePasse"
+              placeholder="Confirmer le mot de passe"
+              [class.is-invalid]="authForm.errors?.['passwordMismatch'] && formControls['confirmMotDePasse'].touched"
+            >
+            <button 
+              class="btn btn-outline-secondary" 
+              type="button"
+              (click)="togglePasswordVisibility()"
+            >
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+            <label for="confirmMotDePasse">Confirmer le mot de passe</label>
+          </div>
+          <div class="invalid-feedback" *ngIf="authForm.errors?.['passwordMismatch'] && formControls['confirmMotDePasse'].touched">
+            Les mots de passe ne correspondent pas
+          </div>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button 
+          type="submit" 
+          class="btn btn-sky-blue w-100 mb-3" 
+          [disabled]="loading || authForm.invalid"
+        >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ isLoginMode ? 'Se connecter' : 'S\'inscrire' }}
+        </button>
+
+        <!-- Lien pour basculer entre connexion et inscription -->
+        <div class="text-center">
+          <a class="text-sky-blue text-decoration-none" (click)="toggleMode()" style="cursor: pointer;">
+            {{ isLoginMode ? 'Créer un compte' : 'Déjà inscrit ? Se connecter' }}
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

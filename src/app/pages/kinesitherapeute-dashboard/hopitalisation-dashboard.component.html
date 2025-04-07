@@ -1,0 +1,13 @@
+<div role="main">
+  <h2 style="background-color: #128942; padding: 1.5rem; text-align: center; color: white; border-radius: 12px 12px 0 0; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 1px; font-size: 1.8rem;">Tableau de Bord Hôpital</h2>
+
+  <nav class="nav nav-pills nav-fill mb-4">
+    <a class="nav-link" [routerLink]="['/hopitalisation-dashboard/admission']" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">Admission Patient</a>
+    <a class="nav-link" [routerLink]="['/hopitalisation-dashboard/patients']" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">Liste des Patients</a>
+    <a class="nav-link" [routerLink]="['/hopitalisation-dashboard/consultation']" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">Consultations</a>
+    <a class="nav-link" [routerLink]="['/hopitalisation-dashboard/chirurgies']" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">Chirurgies</a>
+    <a class="nav-link" [routerLink]="['/hopitalisation-dashboard/ordonnance']" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">Ordonnances</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

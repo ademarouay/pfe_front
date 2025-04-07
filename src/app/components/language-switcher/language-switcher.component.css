@@ -1,0 +1,45 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.btn-group .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  color: #4f8638;
+  border: 1px solid#006400;
+  margin: 0 2px;
+  transition: all 0.2s ease;
+}
+
+.btn-group .btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-group .btn.btn-primary {
+  background-color: #006400;
+  border-color: #006400;
+  font-weight: bold;
+  color: white;
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] .language-switcher .btn-group {
+  flex-direction: row-reverse;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .language-switcher {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  
+  .btn-group .btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+  }
+}

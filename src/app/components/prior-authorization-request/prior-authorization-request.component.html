@@ -1,0 +1,29 @@
+<div class="card mb-4">
+  <div class="card-header bg-warning text-dark">Demande d'accord préalable</div>
+  <div class="card-body">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Ordonnance concernée</label>
+        <select class="form-select" formControlName="prescriptionId">
+          <option *ngFor="let p of prescriptions" [value]="p.id">
+            {{ p.dateCreation | date }} - {{ p.type }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Justification médicale</label>
+        <textarea class="form-control" formControlName="justification" rows="3" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Documents supports</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)" multiple>
+      </div>
+
+      <button type="submit" class="btn btn-warning" [disabled]="!authForm.valid">
+        Soumettre la demande
+      </button>
+    </form>
+  </div>
+</div>

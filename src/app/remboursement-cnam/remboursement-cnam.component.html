@@ -1,0 +1,54 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-sky-blue">{{ 'remboursement.title'  }}</h2>
+    <p class="lead text-center mb-4">
+      {{ 'remboursement.description'  }}
+    </p>
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>{{ 'remboursement.type' }}</th>
+          <th>{{ 'remboursement.taux'  }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let remboursement of remboursements">
+          <td>{{ remboursement.type }}</td>
+          <td>{{ remboursement.taux }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p class="mt-4">
+      {{ 'remboursement.additionalInfo'  }}
+    </p>
+  </div>
+  
+  <footer class="footer mt-auto py-4 bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Labess</h5>
+          <p class="small">{{ 'about.description'  }}</p>
+        </div>
+        <div class="col-md-4">
+          <h5>{{ 'common.quickLinks'  }}</h5>
+          <ul class="list-unstyled">
+            <li><a routerLink="/login" class="text-white text-decoration-none">{{ 'common.login'  }}</a></li>
+            <li><a routerLink="/preinscription" class="text-white text-decoration-none">{{ 'common.register'  }}</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>{{ 'common.contact'  }}</h5>
+          <p class="small">
+            <i class="bi bi-envelope me-2"></i>contact&#64;labess.tn<br>
+            <i class="bi bi-telephone me-2"></i>+216 XX XXX XXX
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p class="small mb-0">&copy; {{currentYear}} Labess. {{ 'common.allRightsReserved'  }}</p>
+      </div>
+    </div>
+  </footer>

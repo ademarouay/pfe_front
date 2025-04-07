@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5>Rechercher un Patient</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="codeCnam">Code CNAM du Patient:</label>
+            <input type="text" class="form-control" id="codeCnam" placeholder="Entrez le code CNAM">
+          </div>
+          <button class="btn btn-primary mt-3" (click)="rechercherPatient()">Rechercher</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h5>Créer une Facture</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="codeCnamFacture">Code CNAM du Patient:</label>
+              <input type="text" class="form-control" id="codeCnamFacture" placeholder="Code CNAM">
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="medicaments">Médicaments:</label>
+              <textarea class="form-control" id="medicaments" rows="3"></textarea>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="tests">Tests:</label>
+              <textarea class="form-control" id="tests" rows="3"></textarea>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="prix">Prix:</label>
+              <input type="number" class="form-control" id="prix" value="0">
+            </div>
+
+            <div class="form-check mt-3">
+              <input type="checkbox" class="form-check-input" id="ordonnance">
+              <label class="form-check-label" for="ordonnance">À partir de l'ordonnance</label>
+            </div>
+
+            <button class="btn btn-success mt-3" (click)="creerFacture()">Ajouter un article</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

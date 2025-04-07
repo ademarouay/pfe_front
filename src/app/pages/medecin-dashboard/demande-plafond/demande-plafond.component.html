@@ -1,0 +1,98 @@
+<div class="demande-plafond-container">
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="form-title">Demande de plafond</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">Nouvelle Demande</h5>
+        </div>
+        <div class="card-body">
+          <form #form="ngForm" (ngSubmit)="submitDemande()">
+            <div class="mb-3">
+              <h6 class="text-muted">Informations patient</h6>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label">Nom complet</label>
+                  <input type="text" class="form-control" [(ngModel)]="data.patientNom" name="patientNom" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">CIN</label>
+                  <input type="text" class="form-control" [(ngModel)]="data.patientCIN" name="patientCIN" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <h6 class="text-muted">Médecin prescripteur</h6>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label">Nom du médecin</label>
+                  <input type="text" class="form-control" [(ngModel)]="data.medecinNom" name="medecinNom" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">RPPS</label>
+                  <input type="text" class="form-control" [(ngModel)]="data.medecinRPPS" name="medecinRPPS" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <h6 class="text-muted">Détails de la demande</h6>
+              <div class="mb-3">
+                <label class="form-label">Montant demandé (DH)</label>
+                <input type="number" class="form-control" [(ngModel)]="data.montant" name="montant" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Justification médicale</label>
+                <textarea class="form-control" [(ngModel)]="data.justification" name="justification" rows="4" required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer la demande</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">Historique des demandes</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Montant</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let demande of demandes">
+                  <td>{{ demande.patientNom }}</td>
+                  <td>{{ demande.montant }} DH</td>
+                  <td>{{ demande.dateCreation | date:'short' }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="{
+                      'bg-warning': demande.statut === 'En attente',
+                      'bg-success': demande.statut === 'Approuvée',
+                      'bg-danger': demande.statut === 'Refusée'
+                    }">{{ demande.statut }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

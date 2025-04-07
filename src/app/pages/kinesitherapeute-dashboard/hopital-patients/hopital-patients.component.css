@@ -1,0 +1,470 @@
+/* hopital-patients.component.css */
+
+/* --- General Layout & Card --- */
+.container {
+    padding: 20px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    border-radius: 8px;
+    border: none;
+    overflow: hidden; /* Prevents content spill */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+  
+  .card-header { /* Optional: If you add a card header above the table */
+    border-radius: 8px 8px 0 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #e0f2f7 0%, #b3e0e5 100%); /* Example light blue gradient */
+    color: #333;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .card-body {
+    padding: 0; /* Removed padding as table handles it */
+  }
+  
+  /* --- Bootstrap Badge Styling --- */
+  .badge {
+    padding: 0.4em 0.7em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+  /* Customize badge colors if needed */
+  .badge.bg-success { color: white; }
+  .badge.bg-warning.text-dark { color: #333 !important; } /* Ensure text is dark on yellow */
+  .badge.bg-secondary { color: white; }
+  .badge.bg-light.text-dark { color: #333 !important; }
+  
+  /* --- PrimeNG Table Styling --- */
+  :host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
+    padding: 0.8rem 1rem; /* Smaller padding for sm table */
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.85rem; /* Slightly smaller font */
+    border: 1px solid #e9ecef;
+    border-width: 0 0 2px 0;
+  }
+  
+  :host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
+    padding: 0.7rem 1rem; /* Smaller padding for sm table */
+    border: 1px solid #e9ecef;
+    vertical-align: middle;
+    color: #212529;
+    font-size: 0.9rem;
+  }
+  
+  :host ::ng-deep .p-datatable .p-sortable-column:focus {
+     box-shadow: none; /* Remove default focus outline on sortable headers */
+  }
+  
+  /* Striping */
+  :host ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even):hover {
+    background-color: #f1f3f5 !important;
+  }
+  /* Gridlines */
+  :host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th,
+  :host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+    border-color: #e9ecef;
+  }
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr:last-child > td {
+    border-bottom: 1px solid #e9ecef;
+  }
+  /* Row Hover */
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #f1f3f5 !important;
+  }
+  /* Empty Message */
+  :host ::ng-deep .p-datatable .p-datatable-emptymessage td {
+    padding: 2rem;
+    color: #6c757d;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    font-style: italic;
+  }
+  
+  /* --- Action Buttons Cell & Button Styling (Icon Only) --- */
+  :host ::ng-deep .actions-cell {
+    text-align: center !important;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Space between buttons */
+    padding: 0.4rem 1rem; /* Reduced vertical padding */
+  }
+  /* General Action Button Style (Small Icon Buttons) */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm {
+    width: 2.2rem; /* Fixed width for icon buttons */
+    height: 2.2rem; /* Fixed height for icon buttons */
+    padding: 0; /* Remove padding */
+    margin: 0;
+    border-radius: 50%; /* Make buttons circular */
+    border: none;
+    cursor: pointer;
+    display: inline-flex; /* Center icon */
+    align-items: center; /* Center icon */
+    justify-content: center; /* Center icon */
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-sm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-sm:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--button-focus-ring-color, rgba(70, 130, 180, 0.4)); /* Default focus color */
+  }
+  /* Action Button Icon */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm .p-button-icon {
+    color: #ffffff; /* Default white icon */
+    font-size: 1rem; /* Icon size */
+    margin: 0; /* Remove default margin */
+  }
+  /* Hide Button Label (if any exists accidentally) */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm .p-button-label {
+    display: none;
+  }
+  
+  /* --- Specific Action Button Colors & Styles --- */
+  :host ::ng-deep .actions-cell .p-button.p-button-info {
+    background-color: #0d6efd; /* Blue */
+    --button-focus-ring-color: rgba(13, 110, 253, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-info:hover {
+    background-color: #0b5ed7;
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-warning {
+    background-color: #ffc107; /* Yellow */
+    --button-focus-ring-color: rgba(255, 193, 7, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-warning:hover {
+    background-color: #e0a800;
+  }
+  /* Warning button needs different text/icon color for contrast */
+  :host ::ng-deep .actions-cell .p-button.p-button-warning .p-button-icon {
+    color: #343a40; /* Dark icon on yellow */
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-danger {
+    background-color: #dc3545; /* Red */
+    --button-focus-ring-color: rgba(220, 53, 69, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-danger:hover {
+    background-color: #bb2d3b;
+  }
+  
+  /* --- Tooltip Styling --- */
+  :host ::ng-deep .p-tooltip {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+  }
+  :host ::ng-deep .p-tooltip .p-tooltip-arrow {
+    border-top-color: rgba(0, 0, 0, 0.8);
+    border-bottom-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  
+  /* --- Dialog Styling (Modern Look - Enhanced) --- */
+  :host ::ng-deep .modern-dialog .p-dialog {
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header {
+    /* Example Gradient - Choose one you like */
+    background: linear-gradient(135deg, #e0f2f7 0%, #b3e0e5 100%); /* Light blue */
+    /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Subtle grey */
+    /* background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); */ /* Blue from ordonnance */
+    color: #333; /* Darker text for light backgrounds */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1.25rem 1.75rem;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-header-icon {
+    color: rgba(0, 0, 0, 0.6); /* Darker icon for light backgrounds */
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-header-icon:hover {
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-content {
+    padding: 2rem 2.5rem; /* Adjust padding */
+    background: #ffffff;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer {
+    padding: 1.25rem 1.75rem;
+    background: #f8f9fa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button {
+    margin-left: 0.5rem;
+    font-weight: 500;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button:first-child {
+    margin-left: 0;
+  }
+  
+  /* --- Dialog Form Element Styling --- */
+  :host ::ng-deep .modern-dialog .field {
+    margin-bottom: 1.5rem;
+  }
+  
+  :host ::ng-deep .modern-dialog .field label.form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    color: #495057;
+    font-size: 0.9rem;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-inputtext,
+:host ::ng-deep .modern-dialog .field .p-calendar .p-inputtext, /* Target calendar input */
+:host ::ng-deep .modern-dialog .field .p-inputtextarea {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 0.75rem 1rem; /* Slightly larger padding */
+  width: 100%;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff; /* Ensure default white background */
+}
+  
+  :host ::ng-deep .modern-dialog .field .p-dropdown {
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      background-color: #ffffff; /* Ensure dropdown bg is white */
+  }
+  :host ::ng-deep .modern-dialog .field .p-dropdown:not(.p-disabled).p-focus {
+      border-color: #87CEEB; /* Use a theme color */
+      box-shadow: 0 0 0 0.2rem rgba(70, 130, 180, 0.25); /* Use theme color with opacity */
+  }
+  :host ::ng-deep .modern-dialog .field .p-dropdown .p-dropdown-clear-icon {
+     color: #6c757d; /* Adjust clear icon color */
+     right: 2.5rem; /* Adjust position if needed */
+  }
+  
+  
+  /* Input focus */
+  :host ::ng-deep .modern-dialog .field .p-inputtext:enabled:focus,
+  :host ::ng-deep .modern-dialog .field .p-calendar:not(.p-disabled).p-focus .p-inputtext,
+  :host ::ng-deep .modern-dialog .field .p-inputtextarea:enabled:focus {
+    border-color: #87CEEB;
+    box-shadow: 0 0 0 0.2rem rgba(70, 130, 180, 0.25);
+    outline: none;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-calendar {
+    width: 100%;
+  }
+  :host ::ng-deep .modern-dialog .field .p-calendar .p-button {
+    border-color: #ced4da;
+    background-color: #e9ecef;
+    color: #495057;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  :host ::ng-deep .modern-dialog .field .p-calendar .p-button:hover {
+    background-color: #ced4da;
+  }
+  
+  /* Readonly styles */
+  :host ::ng-deep .modern-dialog .field input[readonly],
+  :host ::ng-deep .modern-dialog .field textarea[readonly],
+  :host ::ng-deep .modern-dialog .field .p-dropdown.p-disabled,
+  :host ::ng-deep .modern-dialog .field .p-calendar.p-disabled .p-inputtext {
+      background-color: #e9ecef !important; /* Light grey background for readonly/disabled */
+      opacity: 0.8; /* Slightly faded */
+      cursor: not-allowed;
+      border-color: #ced4da;
+  }
+  
+  /* Error message styling */
+  :host ::ng-deep .p-error {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: block;
+    color: #dc3545;
+    font-weight: 500;
+  }
+  
+  
+  /* --- Styling for the Calendar POPUP / OVERLAY (Ensure White Background) --- */
+  /* Target the main datepicker container within the popup */
+  :host ::ng-deep .p-datepicker {
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: auto;
+  }
+  /* Header inside the calendar popup */
+  :host ::ng-deep .p-datepicker .p-datepicker-header {
+    background-color: #f8f9fa !important;
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+  }
+  
+/* Target the main datepicker container within the popup */
+:host ::ng-deep .p-datepicker {
+  background-color: #ffffff !important; /* <<< FORCE solid white background */
+  border: 1px solid #dee2e6;         /* Add a border for definition */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Add shadow for depth */
+  padding: 0.5rem;                   /* Add some internal padding */
+  border-radius: 8px;                /* Optional: Rounded corners for the popup */
+  width: auto; /* Allow datepicker to size naturally */
+}
+
+/* Style the header inside the calendar popup (Month/Year Navigation) */
+:host ::ng-deep .p-datepicker .p-datepicker-header {
+   background-color: #f8f9fa !important; /* Light grey header background */
+   padding: 0.75rem;
+   border-bottom: 1px solid #dee2e6; /* Separator line */
+   border-radius: 8px 8px 0 0; /* Match popup radius */
+   color: #495057 !important; /* Ensure text color is visible */
+}
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title {
+    font-weight: 600;
+    color: #495057 !important;
+    margin: 0 0.5rem; /* Add some spacing around title */
+}
+/* Style month/year dropdowns if they appear */
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title select {
+    background-color: #ffffff !important; /* White background for selects */
+    border: 1px solid #ced4da;
+    color: #495057 !important;
+    font-weight: 500;
+    padding: 0.2rem 0.4rem;
+    margin: 0 0.2rem;
+    border-radius: 4px;
+}
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-prev,
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-next {
+    color: #6c757d !important; /* Color for navigation arrows */
+    width: 2rem; /* Define size */
+    height: 2rem; /* Define size */
+    border-radius: 50%; /* Make arrows circular */
+    transition: background-color 0.2s ease;
+}
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-prev:hover,
+:host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-next:hover {
+    background-color: #e9ecef !important; /* Hover effect for arrows */
+}
+
+
+/* Style the table cells within the calendar */
+:host ::ng-deep .p-datepicker table {
+    font-size: 0.9rem;
+    width: 100%; /* Ensure table fills container */
+    border-collapse: collapse; /* Remove spacing between cells */
+    margin-top: 0.5rem; /* Add space below header */
+    background-color: #ffffff !important; /* <<< Ensure table background is white */
+}
+
+:host ::ng-deep .p-datepicker table th { /* Weekday names (Sun, Mon, ...) */
+    color: #6c757d !important;
+    font-weight: 500;
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    background-color: #ffffff !important; /* Ensure header cells background is white */
+}
+
+:host ::ng-deep .p-datepicker table td {
+    padding: 0.15rem; /* Adjust padding around day numbers */
+    text-align: center;
+    background-color: #ffffff !important; /* <<< Ensure data cells background is white */
+}
+
+/* Style the individual day numbers */
+:host ::ng-deep .p-datepicker table td > span {
+    border-radius: 4px; /* Slightly rounded highlight */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 2.2rem; /* Ensure consistent size */
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #495057 !important; /* Default day color */
+    cursor: pointer;
+    border: 1px solid transparent; /* Placeholder for borders */
+}
+
+/* Hover effect for day numbers */
+:host ::ng-deep .p-datepicker table td > span:not(.p-disabled):not(.p-highlight):hover {
+    background-color: #e9ecef !important; /* Light hover background */
+    color: #0d6efd !important; /* Change color on hover */
+    border-color: transparent; /* Hide border on hover if not today */
+}
+
+/* Style for the selected day */
+:host ::ng-deep .p-datepicker table td > span.p-highlight {
+    background-color: #0d6efd !important; /* Blue background for selected */
+    color: #ffffff !important;            /* White text for selected */
+    border-color: #0d6efd !important; /* Match background */
+}
+
+/* Style for today's date */
+:host ::ng-deep .p-datepicker table td.p-datepicker-today > span:not(.p-highlight) { /* Only style if not selected */
+    border: 1px solid #0d6efd !important; /* Add a border to highlight today */
+    background-color: transparent !important; /* Ensure no bg color */
+    color: #0d6efd !important; /* Blue text for today */
+}
+:host ::ng-deep .p-datepicker table td.p-datepicker-today > span.p-highlight {
+    border: none !important; /* Remove border if today is also selected */
+    background-color: #0d6efd !important; /* Ensure selected style overrides today border */
+    color: #ffffff !important;
+}
+
+/* Style for disabled days */
+:host ::ng-deep .p-datepicker table td > span.p-disabled {
+    opacity: 0.5;
+    cursor: default;
+    background-color: transparent !important; /* Ensure no background */
+    color: #adb5bd !important; /* Greyed out text */
+    border-color: transparent !important; /* No border */
+}
+:host ::ng-deep .p-datepicker table td > span.p-disabled:hover {
+    background-color: transparent !important; /* No hover effect */
+    color: #adb5bd !important;
+}
+
+/* Optional: Style time picker if used */
+:host ::ng-deep .p-datepicker .p-timepicker {
+    background-color: #f8f9fa !important; /* Consistent light background */
+    border-top: 1px solid #dee2e6;
+    padding: 0.75rem;
+    color: #495057;
+}
+:host ::ng-deep .p-datepicker .p-timepicker button {
+    color: #6c757d !important;
+}
+:host ::ng-deep .p-datepicker .p-timepicker button:hover {
+    background-color: #e9ecef !important;
+}

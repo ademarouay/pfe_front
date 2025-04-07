@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h2>Bilans des patients</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Date</th>
+        <th>Évaluation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bilan of bilans">
+        <td>{{ bilan.patient }}</td>
+        <td>{{ bilan.date | date:'dd/MM/yyyy' }}</td>
+        <td>{{ bilan.evaluation }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

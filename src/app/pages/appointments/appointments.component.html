@@ -1,0 +1,255 @@
+<div class="p-4 bg-gradient-to-br from-blue-100 to-white min-h-screen" [@fadeInOut]>
+  <p-card styleClass="shadow-xl border-round-2xl overflow-hidden backdrop-blur-sm bg-white/90">
+    <div class="appointment-container">
+      <style>
+        :host ::ng-deep .p-button {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+        :host ::ng-deep .p-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        :host ::ng-deep .p-button:active {
+          transform: translateY(0);
+        }
+        :host ::ng-deep .custom-calendar .p-datepicker {
+          border-radius: 16px;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(12px);
+          background: rgba(255, 255, 255, 0.95);
+        }
+        :host ::ng-deep .p-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          background: rgba(255, 255, 255, 0.9);
+          backdrop-filter: blur(8px);
+        }
+        :host ::ng-deep .p-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        .appointment-container {
+          animation-duration: 0.6s;
+        }
+        :host ::ng-deep .p-dialog {
+          backdrop-filter: blur(12px);
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+        }
+        :host ::ng-deep .p-table {
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        :host ::ng-deep .p-table th {
+          background: rgba(33, 150, 243, 0.1);
+          font-weight: 600;
+        }
+        :host ::ng-deep .p-table tr:hover {
+          background: rgba(33, 150, 243, 0.05);
+        }
+        :host ::ng-deep .time-slot-button {
+          transition: all 0.3s ease;
+          border: 2px solid transparent;
+        }
+        :host ::ng-deep .time-slot-button:hover {
+          border-color: #2196F3;
+          background: rgba(33, 150, 243, 0.1);
+        }
+        :host ::ng-deep .time-slot-button.available {
+          background: rgba(76, 175, 80, 0.1);
+        }
+        :host ::ng-deep .time-slot-button.unavailable {
+          background: rgba(244, 67, 54, 0.1);
+          opacity: 0.7;
+        }
+      </style>
+
+      <!-- En-tête avec gradient et effet de flou -->
+      <div class="flex justify-content-between align-items-center p-4 mb-4" style="background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%); border-radius: 20px; box-shadow: 0 8px 24px rgba(26, 115, 232, 0.25); backdrop-filter: blur(8px);">
+        <div>
+          <h2 class="text-white m-0 font-bold" style="font-family: 'Poppins', sans-serif;">Gestion des Rendez-vous</h2>
+          <p class="text-white-alpha-70 m-0 mt-2">Planifiez et gérez vos rendez-vous efficacement</p>
+        </div>
+        <div class="flex gap-2 align-items-center">
+          <p-calendar [(ngModel)]="selectedDate" [showIcon]="true" dateFormat="dd/mm/yy" placeholder="Filtrer par date" styleClass="mr-2"></p-calendar>
+          <p-button label="Filtrer" icon="pi pi-filter" styleClass="p-button-outlined p-button-light mr-2 border-round-lg" (click)="filterAppointmentsByDate()"></p-button>
+          <p-button label="Aujourd'hui" icon="pi pi-calendar" styleClass="p-button-outlined p-button-light mr-2 border-round-lg" (click)="filterTodayAppointments()"></p-button>
+          <p-button label="Demain" icon="pi pi-calendar" styleClass="p-button-outlined p-button-light mr-2 border-round-lg" (click)="filterTomorrowAppointments()"></p-button>
+          <p-button label="+ Nouveau Rendez-vous" icon="pi pi-plus" styleClass="p-button-raised p-button-light border-round-lg" (click)="showNewAppointmentDialog()" [style]="{'background': 'rgba(255,255,255,0.2)', 'backdrop-filter': 'blur(10px)'}"></p-button>
+        </div>
+      </div>
+
+      <!-- Grille principale avec animations -->
+      <div class="grid" [@fadeInOut]>
+        <!-- Calendrier -->
+        <div class="col-12 lg:col-8 mb-4">
+          <p-card styleClass="h-full shadow-lg border-round-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+            <p-calendar [inline]="true" [showWeek]="true" [showTime]="true" [hourFormat]="'24'" [showButtonBar]="true" styleClass="w-full custom-calendar" [style]="calendarStyle"></p-calendar>
+          </p-card>
+        </div>
+
+        <!-- Créneaux horaires -->
+        <div class="col-12 lg:col-4 mb-4">
+          <p-card styleClass="h-full shadow-2 border-round-xl">
+            <ng-template pTemplate="header">
+              <div class="p-4" style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; font-family: Poppins, sans-serif; font-weight: 600; border-radius: 12px 12px 0 0; box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);">
+                <h3 class="m-0 flex align-items-center gap-2">
+                  <i class="pi pi-clock text-xl"></i>
+                  <span>Créneaux disponibles</span>
+                </h3>
+              </div>
+            </ng-template>
+            <div class="grid p-2">
+              <div class="col-12" *ngFor="let slot of timeSlots" [@fadeInOut]>
+                <button pButton [label]="slot.time" [ngClass]="['time-slot-button', slot.available ? 'available' : 'unavailable']" class="p-button-outlined w-full mb-2 p-3 border-round-lg" [style]="{'font-size': '1.1rem'}" [pTooltip]="slot.available ? 'Cliquez pour sélectionner ce créneau' : 'Créneau non disponible'" (click)="selectTimeSlot(slot)" [disabled]="!slot.available">
+                  <i [class]="slot.available ? 'pi pi-calendar-plus mr-2' : 'pi pi-lock mr-2'"></i>
+                  <span>{{slot.time}}</span>
+                  <i [class]="slot.available ? 'pi pi-check text-green-500 ml-2' : 'pi pi-times text-red-500 ml-2'"></i>
+                </button>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Tableaux des rendez-vous avec animations -->
+      <div class="grid" [@fadeInOut]>
+        <!-- Rendez-vous d'aujourd'hui -->
+        <div class="col-12 lg:col-6 mb-4">
+          <p-card styleClass="h-full shadow-2">
+            <ng-template pTemplate="header">
+              <div class="p-3" style="background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%); border-radius: 12px 12px 0 0; box-shadow: 0 2px 8px rgba(67, 160, 71, 0.2);">
+                <h3 class="text-white m-0 font-semibold flex align-items-center gap-2">
+                  <i class="pi pi-calendar"></i>
+                  <span>Rendez-vous d'aujourd'hui</span>
+                </h3>
+              </div>
+            </ng-template>
+            <p-table [value]="todayAppointments" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm p-datatable-striped" [sortField]="'time'" [sortOrder]="1" [rowHover]="true" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="time" class="text-center">Heure <p-sortIcon field="time"></p-sortIcon></th>
+                  <th pSortableColumn="patientName">Patient <p-sortIcon field="patientName"></p-sortIcon></th>
+                  <th pSortableColumn="consultationCount" class="text-center">Consultations <p-sortIcon field="consultationCount"></p-sortIcon></th>
+                  <th class="text-center">Type</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-appointment>
+                <tr [@fadeInOut]>
+                  <td class="text-center font-semibold text-primary">{{appointment.time}}</td>
+                  <td class="font-medium">{{appointment.patientName}}</td>
+                  <td class="text-center">
+                    <span class="p-badge p-badge-info font-medium" [style]="{'background-color': '#2196F3', 'padding': '0.5rem 0.75rem', 'border-radius': '12px'}">{{appointment.consultationCount || 0}}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="p-tag" [ngClass]="{
+                      'p-tag-success': appointment.type === 'Consultation',
+                      'p-tag-warning': appointment.type === 'Suivi',
+                      'p-tag-danger': appointment.type === 'Urgence'
+                    }">{{appointment.type}}</span>
+                  </td>
+                  <td>
+                    <div class="flex gap-2 justify-content-center">
+                      <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" pTooltip="Voir les détails" tooltipPosition="top" (click)="viewAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-sm" pTooltip="Modifier" tooltipPosition="top" (click)="editAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                      <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" pTooltip="Supprimer" tooltipPosition="top" (click)="deleteAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-card>
+        </div>
+
+        <!-- Rendez-vous de demain -->
+        <div class="col-12 lg:col-6 mb-4">
+          <p-card styleClass="h-full shadow-2">
+            <ng-template pTemplate="header">
+              <div class="p-3" style="background: linear-gradient(135deg, #fb8c00 0%, #ef6c00 100%); border-radius: 12px 12px 0 0; box-shadow: 0 2px 8px rgba(251, 140, 0, 0.2);">
+                <h3 class="text-white m-0 font-semibold flex align-items-center gap-2">
+                  <i class="pi pi-calendar"></i>
+                  <span>Rendez-vous de demain</span>
+                </h3>
+              </div>
+            </ng-template>
+            <p-table [value]="tomorrowAppointments" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm p-datatable-striped" [sortField]="'time'" [sortOrder]="1" [rowHover]="true" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="time" class="text-center">Heure <p-sortIcon field="time"></p-sortIcon></th>
+                  <th pSortableColumn="patientName">Patient <p-sortIcon field="patientName"></p-sortIcon></th>
+                  <th pSortableColumn="consultationCount" class="text-center">Consultations <p-sortIcon field="consultationCount"></p-sortIcon></th>
+                  <th class="text-center">Type</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-appointment>
+                <tr [@fadeInOut]>
+                  <td class="text-center font-semibold text-primary">{{appointment.time}}</td>
+                  <td class="font-medium">{{appointment.patientName}}</td>
+                  <td class="text-center">
+                    <span class="p-badge p-badge-info font-medium" [style]="{'background-color': '#2196F3', 'padding': '0.5rem 0.75rem', 'border-radius': '12px'}">{{appointment.consultationCount || 0}}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="p-tag" [ngClass]="{
+                      'p-tag-success': appointment.type === 'Consultation',
+                      'p-tag-warning': appointment.type === 'Suivi',
+                      'p-tag-danger': appointment.type === 'Urgence'
+                    }">{{appointment.type}}</span>
+                  </td>
+                  <td>
+                    <div class="flex gap-2 justify-content-center">
+                      <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" pTooltip="Voir les détails" tooltipPosition="top" (click)="viewAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-sm" pTooltip="Modifier" tooltipPosition="top" (click)="editAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                      <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" pTooltip="Supprimer" tooltipPosition="top" (click)="deleteAppointment(appointment)" [style]="{'width': '2rem', 'height': '2rem'}"></button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Dialogue de rendez-vous -->
+      <p-dialog [(visible)]="displayAppointmentDialog" [modal]="true" [style]="{width: '450px'}" header="{{isNewAppointment ? 'Nouveau Rendez-vous' : 'Détails du Rendez-vous'}}" styleClass="p-fluid" [draggable]="false" [resizable]="false">
+        <div class="p-4">
+          <div class="field mb-4">
+            <label for="patient" class="block text-900 font-medium mb-2">Patient</label>
+            <p-dropdown [options]="patients" [(ngModel)]="appointmentForm.patientId" optionLabel="name" optionValue="id" placeholder="Sélectionner un patient" [filter]="true" filterBy="name" [showClear]="true" styleClass="w-full"></p-dropdown>
+          </div>
+          <div class="field mb-4">
+            <label for="type" class="block text-900 font-medium mb-2">Type de rendez-vous</label>
+            <p-dropdown [options]="appointmentTypes" [(ngModel)]="appointmentForm.type" optionLabel="name" placeholder="Sélectionner un type" styleClass="w-full"></p-dropdown>
+          </div>
+          <div class="field mb-4">
+            <label for="date" class="block text-900 font-medium mb-2">Date</label>
+            <p-calendar [(ngModel)]="appointmentForm.date" [showTime]="true" [minDate]="minDate" [readonlyInput]="true" [showIcon]="true" styleClass="w-full"></p-calendar>
+          </div>
+          <div class="field mb-4">
+            <label for="notes" class="block text-900 font-medium mb-2">Notes</label>
+            <textarea pInputTextarea [(ngModel)]="appointmentForm.notes" rows="3" class="w-full"></textarea>
+          </div>
+        </div>
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button pButton pRipple label="{{isNewAppointment ? 'Créer' : 'Mettre à jour'}}" icon="pi pi-check" class="p-button-text" (click)="saveAppointment()"></button>
+        </ng-template>
+      </p-dialog>
+
+      <!-- Dialogue de confirmation de suppression -->
+      <p-dialog [(visible)]="displayDeleteConfirmation" header="Confirmation" [modal]="true" [style]="{width: '450px'}">
+        <div class="flex align-items-center justify-content-center">
+          <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem; color: var(--yellow-700);"></i>
+          <span>Êtes-vous sûr de vouloir supprimer ce rendez-vous ?</span>
+        </div>
+        <ng-template pTemplate="footer">
+          <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="cancelDelete()"></button>
+          <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-danger" label="Oui" (click)="confirmDelete()"></button>
+        </ng-template>
+      </p-dialog>
+    </div>
+  </p-card>
+</div>

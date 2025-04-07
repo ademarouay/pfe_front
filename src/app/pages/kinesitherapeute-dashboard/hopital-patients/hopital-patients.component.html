@@ -1,0 +1,152 @@
+<div class="container my-4">
+    <h2 class="text-center mb-4">Gestion des Patients</h2>
+  
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Rechercher par nom, ID, email, téléphone..."
+                 [(ngModel)]="searchTerm" (ngModelChange)="onSearch()">
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end mt-2 mt-md-0">
+        <button pButton type="button" label="Ajouter un Patient" icon="pi pi-user-plus" class="p-button-success" (click)="showAddPatientDialog()"></button>
+      </div>
+    </div>
+  
+    <div class="card shadow-sm">
+      <div class="card-body p-0"> <p-table [value]="filteredPatients" [tableStyle]="{'min-width': '60rem'}" responsiveLayout="scroll" styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="nomComplet">Nom Complet <p-sortIcon field="nomComplet"></p-sortIcon></th>
+              <th>Genre</th>
+              <th pSortableColumn="dateNaissance">Date Naissance <p-sortIcon field="dateNaissance"></p-sortIcon></th>
+              <th>Téléphone</th>
+              <th>Email</th>
+              <th>Statut</th>
+              <th style="width: 15rem; text-align: center;">Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-patient>
+            <tr>
+              <td>{{ patient.id }}</td>
+              <td>{{ patient.nomComplet }}</td>
+              <td>{{ patient.genre }}</td>
+              <td>{{ patient.dateNaissance | date:'dd/MM/yyyy' }}</td>
+              <td>{{ patient.numeroTelephone }}</td>
+              <td>{{ patient.email }}</td>
+              <td>
+                <span class="badge" [ngClass]="getBadgeClass(patient.status)">{{ patient.status || 'N/A' }}</span>
+              </td>
+              <td class="actions-cell">
+                <button pButton type="button" icon="pi pi-eye" pTooltip="Voir Détails" tooltipPosition="top"
+                        class="p-button-sm p-button-info"
+                        (click)="viewPatient(patient)">
+                </button>
+                <button pButton type="button" icon="pi pi-pencil" pTooltip="Modifier" tooltipPosition="top"
+                        class="p-button-sm p-button-warning"
+                        (click)="editPatient(patient)">
+                </button>
+                <button pButton type="button" icon="pi pi-trash" pTooltip="Supprimer" tooltipPosition="top"
+                        class="p-button-sm p-button-danger"
+                        (click)="deletePatient(patient.id)">
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="8" class="text-center p-4">Aucun patient trouvé.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  
+    <p-dialog
+      [(visible)]="dialogVisible"
+      [modal]="true"
+      [style]="{ width: '70vw', 'min-width': '400px' }"
+      [draggable]="false"
+      [resizable]="false"
+      [header]="getDialogHeader()"
+      styleClass="modern-dialog"
+      (onHide)="onDialogCancel()"
+      [blockScroll]="true"
+    >
+      <form [formGroup]="patientForm" class="p-fluid">
+  
+        <div class="row">
+          <div class="col-md-6">
+            <div class="field mb-3">
+              <label for="nomComplet" class="form-label">Nom Complet</label>
+              <input pInputText id="nomComplet" formControlName="nomComplet" placeholder="Nom et prénom" class="w-full" [readOnly]="viewMode"/>
+              <small *ngIf="patientForm.controls['nomComplet'].invalid && patientForm.controls['nomComplet'].touched" class="p-error block mt-1">Nom complet requis.</small>
+            </div>
+          </div>
+          <div class="col-md-6">
+             <div class="field mb-3">
+               <label for="dateNaissance" class="form-label">Date de Naissance</label>
+               <p-calendar id="dateNaissance" formControlName="dateNaissance" [showIcon]="true" dateFormat="dd/mm/yy" styleClass="w-full" [disabled]="viewMode" placeholder="jj/mm/aaaa" appendTo="body"></p-calendar>  <small *ngIf="patientForm.controls['dateNaissance'].invalid && patientForm.controls['dateNaissance'].touched" class="p-error block mt-1">Date de naissance requise.</small>
+             </div>
+          </div>
+        </div>
+  
+        <div class="row">
+           <div class="col-md-6">
+              <div class="field mb-3">
+                  <label for="genre" class="form-label">Genre</label>
+                  <p-dropdown id="genre" [options]="genreOptions" formControlName="genre" placeholder="Sélectionner le genre" optionLabel="label" optionValue="value" styleClass="w-full" [disabled]="viewMode" appendTo="body"></p-dropdown> <small *ngIf="patientForm.controls['genre'].invalid && patientForm.controls['genre'].touched" class="p-error block mt-1">Genre requis.</small>
+              </div>
+           </div>
+           <div class="col-md-6">
+              <div class="field mb-3">
+                <label for="codeCnam" class="form-label">Code CNAM (Facultatif)</label>
+                <input pInputText id="codeCnam" type="number" formControlName="codeCnam" placeholder="Code CNAM" class="w-full" [readOnly]="viewMode"/>
+                </div>
+           </div>
+        </div>
+  
+         <div class="row">
+          <div class="col-md-6">
+            <div class="field mb-3">
+              <label for="numeroTelephone" class="form-label">Numéro de Téléphone</label>
+              <input pInputText id="numeroTelephone" formControlName="numeroTelephone" placeholder="Numéro de téléphone" class="w-full" [readOnly]="viewMode"/>
+              <small *ngIf="patientForm.controls['numeroTelephone'].invalid && patientForm.controls['numeroTelephone'].touched" class="p-error block mt-1">
+                  <span *ngIf="patientForm.controls['numeroTelephone'].errors?.['required']">Téléphone requis.</span>
+                  <span *ngIf="patientForm.controls['numeroTelephone'].errors?.['pattern']">Format téléphone invalide (ex: 8 chiffres).</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+             <div class="field mb-3">
+               <label for="email" class="form-label">Email</label>
+               <input pInputText id="email" type="email" formControlName="email" placeholder="adresse@email.com" class="w-full" [readOnly]="viewMode"/>
+                <small *ngIf="patientForm.controls['email'].invalid && patientForm.controls['email'].touched" class="p-error block mt-1">
+                    <span *ngIf="patientForm.controls['email'].errors?.['required']">Email requis.</span>
+                    <span *ngIf="patientForm.controls['email'].errors?.['email']">Format email invalide.</span>
+                </small>
+             </div>
+          </div>
+        </div>
+  
+        <div class="field mb-4">
+          <label for="adresse" class="form-label">Adresse</label>
+          <textarea pInputTextarea id="adresse" formControlName="adresse" rows="3" placeholder="Adresse complète" class="w-full" [readOnly]="viewMode" autoResize="autoResize"></textarea> <small *ngIf="patientForm.controls['adresse'].invalid && patientForm.controls['adresse'].touched" class="p-error block mt-1">Adresse requise.</small>
+        </div>
+  
+      </form>
+  
+      <ng-template pTemplate="footer">
+        <div class="d-flex justify-content-end gap-2">
+          <p-button *ngIf="viewMode" label="Fermer" icon="pi pi-times" (click)="onDialogCancel()" styleClass="p-button-secondary"></p-button>
+          <ng-container *ngIf="!viewMode">
+             <p-button label="Annuler" icon="pi pi-times" (click)="onDialogCancel()" styleClass="p-button-text"></p-button>
+             <p-button [label]="editMode ? 'Enregistrer Modifs.' : 'Enregistrer'" icon="pi pi-check" (click)="onDialogSave()" [disabled]="!patientForm.valid || (editMode && patientForm.pristine)" [styleClass]="editMode ? 'p-button-warning' : 'p-button-success'"></p-button>
+          </ng-container>
+        </div>
+      </ng-template>
+    </p-dialog>
+  
+  </div>

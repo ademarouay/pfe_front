@@ -1,0 +1,135 @@
+<div class="container my-4">
+    <!-- Header -->
+
+  
+
+    <!-- Main Content Card -->
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h3>Consultations Hospitalières</h3>
+      </div>
+      <div class="card-body">
+         <!-- Add New Button -->
+        <div class="mb-3 text-end">
+            <button pButton type="button" label="Nouvelle Consultation" icon="pi pi-plus" class="p-button-warning" (click)="ajouterConsultation()"></button>
+        </div>
+
+        <!-- PrimeNG Table -->
+        <p-table [value]="consultations" [tableStyle]="{'min-width': '50rem'}" responsiveLayout="scroll" styleClass="p-datatable-striped p-datatable-gridlines">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th style="width: 8rem;">Date</th>
+                  <th>Patient</th>
+                  <th>Médecin</th>
+                  <th>Diagnostic</th>
+                  <th>Traitement</th>
+                  <th style="width: 24rem; text-align: center;">Actions</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-consultation>
+              <tr>
+                  <td>{{ consultation.date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ consultation.patient }}</td>
+                  <td>{{ consultation.medecin }}</td>
+                  <td style="white-space: pre-wrap;">{{ consultation.diagnostic }}</td>
+                  <td style="white-space: pre-wrap;">{{ consultation.traitement }}</td>
+                   <!-- Action Buttons Cell -->
+                  <td class="actions-cell">
+                       <!-- View Button -->
+                       <button pButton type="button"
+                              icon="pi pi-eye"
+                              label="Voir"
+                             
+                              class="p-button-sm p-button-info"
+                              (click)="voirConsultation(consultation)">
+                      </button>
+                      <!-- Modifier Button -->
+                      <button pButton type="button"
+                              icon="pi pi-pencil"
+                              label="Modifier"
+                              
+                              class="p-button-sm p-button-warning"
+                              (click)="modifierConsultation(consultation)">
+                      </button>
+                      <!-- Supprimer Button -->
+                      <button pButton type="button"
+                              icon="pi pi-trash"
+                              label="Supprimer"
+                            
+                              class="p-button-sm p-button-danger"
+                              (click)="supprimerConsultation(consultation)">
+                      </button>
+                  </td>
+              </tr>
+          </ng-template>
+           <ng-template pTemplate="emptymessage">
+              <tr>
+                  <td colspan="6" class="text-center p-4">Aucune consultation trouvée.</td> <!-- Adjusted colspan -->
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+     <!-- Dialog for Add/Edit/View -->
+     <p-dialog
+        [(visible)]="dialogVisible"
+        [modal]="true"
+        [style]="{ width: '60vw', 'min-width': '350px' }"
+        [draggable]="false"
+        [resizable]="false"
+        [header]="getDialogHeader()"
+        styleClass="modern-dialog"
+        (onHide)="onDialogCancel()"
+        [blockScroll]="true"
+     >
+      <form [formGroup]="consultationForm" class="p-fluid">
+        <!-- Patient -->
+        <div class="field mb-3">
+          <label for="patient" class="form-label">Patient</label>
+          <input pInputText id="patient" formControlName="patient" placeholder="Nom du patient" class="w-full" [readOnly]="viewMode"/>
+          <small *ngIf="consultationForm.controls['patient'].invalid && consultationForm.controls['patient'].touched" class="p-error block mt-1">Patient requis.</small>
+        </div>
+
+        <!-- Date -->
+        <div class="field mb-3">
+          <label for="date" class="form-label">Date</label>
+          <p-calendar id="date" formControlName="date" [showIcon]="true" dateFormat="dd/mm/yy" styleClass="w-full" [disabled]="viewMode"></p-calendar>
+           <small *ngIf="consultationForm.controls['date'].invalid && consultationForm.controls['date'].touched" class="p-error block mt-1">Date requise.</small>
+        </div>
+
+        <!-- Medecin -->
+        <div class="field mb-3">
+          <label for="medecin" class="form-label">Médecin</label>
+          <input pInputText id="medecin" formControlName="medecin" placeholder="Nom du médecin" class="w-full" [readOnly]="viewMode"/>
+          <small *ngIf="consultationForm.controls['medecin'].invalid && consultationForm.controls['medecin'].touched" class="p-error block mt-1">Médecin requis.</small>
+        </div>
+
+        <!-- Diagnostic -->
+        <div class="field mb-3">
+          <label for="diagnostic" class="form-label">Diagnostic</label>
+          <textarea pInputTextarea id="diagnostic" formControlName="diagnostic" rows="4" placeholder="Diagnostic médical" class="w-full" [readOnly]="viewMode"></textarea>
+           <small *ngIf="consultationForm.controls['diagnostic'].invalid && consultationForm.controls['diagnostic'].touched" class="p-error block mt-1">Diagnostic requis.</small>
+        </div>
+
+        <!-- Traitement -->
+        <div class="field mb-4">
+          <label for="traitement" class="form-label">Plan de Traitement</label>
+          <textarea pInputTextarea id="traitement" formControlName="traitement" rows="4" placeholder="Plan de traitement proposé" class="w-full" [readOnly]="viewMode"></textarea>
+           <small *ngIf="consultationForm.controls['traitement'].invalid && consultationForm.controls['traitement'].touched" class="p-error block mt-1">Traitement requis.</small>
+        </div>
+      </form>
+
+      <!-- Dialog Footer -->
+      <ng-template pTemplate="footer">
+        <div class="d-flex justify-content-end gap-2">
+           <p-button *ngIf="viewMode" label="Fermer" icon="pi pi-times" (click)="onDialogCancel()" styleClass="p-button-secondary"></p-button>
+           <ng-container *ngIf="!viewMode">
+              <p-button label="Annuler" icon="pi pi-times" (click)="onDialogCancel()" styleClass="p-button-text"></p-button>
+              <p-button label="Enregistrer" icon="pi pi-check" (click)="onDialogSave()" [disabled]="!consultationForm.valid || (editMode && consultationForm.pristine)" styleClass="p-button-success"></p-button>
+            </ng-container>
+        </div>
+      </ng-template>
+    </p-dialog>
+
+  </div> 

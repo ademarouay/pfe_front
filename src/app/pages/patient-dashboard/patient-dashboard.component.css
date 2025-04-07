@@ -1,0 +1,46 @@
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+.list-group-item {
+  border-left: none;
+  border-right: none;
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.timeline-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,27 @@
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Nouvelle Réclamation</div>
+  <div class="card-body">
+    <form [formGroup]="claimForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Montant</label>
+        <input type="number" class="form-control" formControlName="amount">
+        <div *ngIf="claimForm.get('amount')?.invalid" class="text-danger">
+          Montant requis
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="rights">
+        Plafond restant : {{ rights.remainingAmount | currency:'EUR' }}
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!claimForm.valid">
+        Soumettre
+      </button>
+    </form>
+  </div>
+</div>

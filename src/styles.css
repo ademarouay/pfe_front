@@ -1,1 +1,194 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --labess-primary: #000000;
+  --labess-secondary: #67B231;
+  --labess-accent: #ADFF2F;
+  --labess-dark: #3c3636;
+  --labess-white: #ffffff;
+  --labess-gray: #f8f9fa;
+  --labess-border: #dee2e6;
+}
+
+/* Dark Theme Styles */
+.dark-theme {
+  background-color: var(--labess-dark) !important;
+  color: var(--labess-white) !important;
+}
+
+.dark-theme .navbar {
+  background-color: var(--labess-dark) !important;
+  border-bottom: 1px solid var(--labess-accent) !important;
+}
+
+.dark-theme .navbar-toggler {
+  border-color: var(--labess-accent) !important;
+}
+
+.dark-theme .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.dark-theme .card {
+  background-color: var(--labess-dark) !important;
+  border-color: var(--labess-accent) !important;
+  color: var(--labess-white) !important;
+}
+
+.dark-theme .form-control,
+.dark-theme .form-select {
+  background-color: var(--labess-dark) !important;
+  border-color: var(--labess-accent) !important;
+  color: var(--labess-white) !important;
+}
+
+.dark-theme .form-control:focus,
+.dark-theme .form-select:focus {
+  border-color: var(--labess-secondary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(103, 178, 49, 0.25) !important;
+}
+
+.dark-theme .table {
+  color: var(--labess-white) !important;
+  background-color: var(--labess-dark) !important;
+}
+
+.dark-theme .table th,
+.dark-theme .table td {
+  border-color: var(--labess-accent) !important;
+}
+
+.dark-theme .modal-content {
+  background-color: var(--labess-dark) !important;
+  border-color: var(--labess-accent) !important;
+  color: var(--labess-white) !important;
+}
+
+.dark-theme .btn-labess {
+  background-color: var(--labess-secondary) !important;
+  border-color: var(--labess-secondary) !important;
+  color: var(--labess-white) !important;
+}
+
+.dark-theme a {
+  color: var(--labess-accent) !important;
+}
+
+.dark-theme a:hover {
+  color: var(--labess-secondary) !important;
+}
+
+.dark-theme .nav-link {
+  color: var(--labess-white) !important;
+}
+
+.dark-theme .nav-link:hover {
+  color: var(--labess-accent) !important;
+}
+
+
+.dark-theme .btn-labess:hover {
+  background-color: var(--labess-accent) !important;
+  border-color: var(--labess-accent) !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--labess-white) 0%, var(--labess-light) 20%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-labess {
+  color: var(--labess-primary) !important;
+}
+
+.bg-labess {
+  background-color: var(--labess-primary) !important;
+}
+
+.btn-labess {
+  background-color: var(--labess-secondary);
+  border-color: var(--labess-secondary);
+  color: var(--labess-white);
+}
+
+.btn-labess:hover {
+  background-color: var(--labess-accent);
+  border-color: var(--labess-accent);
+  color: var(--labess-white);
+}
+
+.btn-labess:disabled {
+  background-color: var(--labess-light);
+  border-color: var(--labess-light);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--labess-secondary);
+  box-shadow: 0 0 0 0.2rem rgba(103, 178, 49, 0.25);
+}
+
+.card {
+  transition: transform 0.3s ease;
+  border-color: var(--labess-accent);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+.btnn {
+  background-color: #28a745; /* Green color for the login button */
+  border-color: #28a745;
+  color: white;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+
+}
+
+.btnn:hover {
+  background-color: #ffffff; /* Darker green on hover */
+  border-color: #1e7e34;
+  color: #1e7e34;
+}
+
+.text-muted {
+  /* Your existing text-muted styles, if any */
+  display: block; /* ensure the link is on a new line */
+  margin-top: 5px; /* Add a little space between button and link */
+}
+
+
+
+/* Dark Theme Adjustments (if you're implementing dark mode) */
+body.dark-theme .card {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px solid #333;
+}
+
+body.dark-theme .form-control {
+  background-color: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+body.dark-theme .btnn {
+  background-color: #388e3c; /* Adjusted green for dark mode */
+  border-color: #388e3c;
+  color: #e0e0e0;
+}
+
+body.dark-theme .btnn:hover {
+  background-color: #2e7d32; /* Darker green on hover for dark mode */
+  border-color: #2e7d32;
+}
+
+body.dark-theme .text-muted {
+  color: #9e9e9e; /* Adjusted muted text color for dark mode */
+}
+

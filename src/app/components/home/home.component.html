@@ -1,0 +1,153 @@
+
+<!-- Role-specific Dashboard -->
+<div class="container" *ngIf="currentUser">
+  <h2 class="mb-4">{{ 'dashboard.dashboard' | translate }} - {{ userRole }}</h2>
+  
+  <!-- Doctor Dashboard -->
+  <div *ngIf="userRole === 'MEDECIN'" class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ 'dashboard.todayAppointments' | translate }}</h5>
+          <p class="card-text">{{ 'doctor.noAppointmentsToday' | translate }}</p>
+          <a routerLink="/rendez-vous" class="btn btn-primary">{{ 'doctor.viewAllAppointments' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pharmacist Dashboard -->
+  <div *ngIf="userRole === 'PHARMACIEN'" class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ 'dashboard.pendingPrescriptions' | translate }}</h5>
+          <p class="card-text">{{ 'pharmacist.managePrescriptions' | translate }}</p>
+          <a routerLink="/ordonnances" class="btn btn-primary">{{ 'pharmacist.viewAllPrescriptions' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient Dashboard -->
+  <div *ngIf="userRole === 'PATIENT'" class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ 'patient.prescriptions' | translate }}</h5>
+          <p class="card-text">{{ 'patient.viewAllPrescriptions' | translate }}</p>
+          <a routerLink="/mes-ordonnances" class="btn btn-primary">{{ 'patient.viewAllPrescriptions' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Description Section -->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <h2 class="text-center mb-4 text-sky-blue">{{ 'about.title' | translate }}</h2>
+      <p class="lead text-center mb-4">
+        Labess est une plateforme de santé numérique innovante qui connecte tous les acteurs du système de santé tunisien. Notre solution facilite la communication entre patients, médecins, pharmaciens, kinésithérapeutes, laboratoires et hôpitaux pour une meilleure coordination des soins et une expérience patient optimisée.
+      </p>
+      <div class="row g-4 mt-4">
+        <!-- Médecin Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-hospital fa-3x text-sky- mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>{{ 'about.forDoctors' | translate }}</h5>
+              <p class="card-text">Simplifiez votre pratique médicale avec notre plateforme intégrée. Gérez vos patients, prescriptions et rendez-vous en toute simplicité.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pharmacien Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-capsule fa-3x text-sky-blue mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>{{ 'about.forPharmacists' | translate }}</h5>
+              <p class="card-text">Accédez instantanément aux ordonnances électroniques et gérez votre inventaire avec efficacité pour un service client optimal.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Patient Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-person fa-3x text-sky-blue mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>{{ 'about.forPatients' | translate }}</h5>
+              <p class="card-text">Consultez vos ordonnances, prenez rendez-vous et accédez à votre dossier médical en toute sécurité, où que vous soyez.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Kinesithérapeute Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-bandaid fa-3x text-sky-blue mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>{{ 'about.forHopitalisation' | translate }}</h5>
+              <p class="card-text">Organisez vos soins quotidiens, suivez les traitements de vos patients et collaborez efficacement avec les médecins.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Laboratoire Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-microscope fa-3x text-sky-blue mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>Pour les Laboratoires</h5>
+              <p class="card-text">Gérez efficacement vos analyses médicales et diagnostics avec notre système intégré. Traitez les échantillons, produisez des résultats précis et partagez-les instantanément avec les médecins et patients pour une prise en charge rapide et des décisions médicales éclairées.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hôpital Card -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-building fa-3x text-sky-blue mb-3"></i>
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>Pour les Hôpitaux</h5>
+              <p class="card-text">Optimisez la gestion de votre établissement, coordonnez les soins entre services et améliorez l'expérience patient.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-4 bg-dark text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Labess</h5>
+        <p class="small">{{ 'about.description' | translate }}</p>
+      </div>
+      <div class="col-md-4">
+        <h5>{{ 'common.quickLinks' | translate }}</h5>
+        <ul class="list-unstyled">
+          <li><a routerLink="/login" class="text-white text-decoration-none">{{ 'common.login' | translate }}</a></li>
+          <li><a routerLink="/preinscription" class="text-white text-decoration-none">{{ 'common.register' | translate }}</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>{{ 'common.contact' | translate }}</h5>
+        <p class="small">
+          <i class="bi bi-envelope me-2"></i>contact&#64;labess.tn<br>
+          <i class="bi bi-telephone me-2"></i>+216 XX XXX XXX
+        </p>
+      </div>
+    </div>
+    <hr>
+    <div class="text-center">
+      <p class="small mb-0">&copy; {{currentYear}} Labess. {{ 'common.allRightsReserved' | translate }}</p>
+    </div>
+  </div>
+</footer>

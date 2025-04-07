@@ -1,0 +1,28 @@
+.container {
+  padding: 20px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.test-list {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.test-list h3 {
+  margin-bottom: 10px;
+}
+
+test-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+test-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}

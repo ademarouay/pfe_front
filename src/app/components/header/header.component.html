@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg" [ngStyle]="{'background-color': isDarkTheme ? '#222222' : 'aliceblue'}">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="../../../assets/logo3.png" alt="LABESS Logo" style="height: 40px;" id="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/home" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./../../remboursement-cnam" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Droit de remboursement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/demande-plafond" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Demande de plafond</a>
+        </li>
+        <li class="nav-item" *ngIf="currentUser">
+          <a class="nav-link" routerLink="/profile" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Profile</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <button class="btn btn-link nav-link" (click)="toggleTheme()" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">
+            <i [ngClass]="isDarkTheme ? 'bi bi-sun-fill' : 'bi bi-moon-fill'"></i>
+          </button>
+        </li>
+        <li class="nav-item">
+          <app-language-switcher [ngStyle]="{'color': isDarkTheme ? 'white' : 'white'}"></app-language-switcher>
+        </li>
+        <li class="nav-item" *ngIf="currentUser">
+          <button class="btn btn-link nav-link" (click)="logout()" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

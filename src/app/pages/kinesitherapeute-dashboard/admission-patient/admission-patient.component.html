@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Admission Patient</h2>
+
+  <form [formGroup]="admissionForm" (ngSubmit)="enregistrerAdmission()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="nomPatient" class="form-label">Nom Patient</label>
+        <input type="text" class="form-control" id="nomPatient" formControlName="nomPatient" required>
+      </div>
+      <div class="col-md-6">
+        <label for="prenomPatient" class="form-label">Prénom Patient</label>
+        <input type="text" class="form-control" id="prenomPatient" formControlName="prenomPatient" required>
+      </div>
+      <div class="col-md-6">
+        <label for="dateNaissance" class="form-label">Date de Naissance</label>
+        <input type="date" class="form-control" id="dateNaissance" formControlName="dateNaissance" required>
+        <small class="text-muted" *ngIf="admissionForm.get('dateNaissance')?.value">{{ admissionForm.get('dateNaissance')?.value | date:'dd/MM/yyyy' }}</small>
+      </div>
+      <div class="col-md-6">
+        <label for="telephone" class="form-label">Téléphone</label>
+        <input type="tel" class="form-control" id="telephone" formControlName="telephone" required>
+      </div>
+      <div class="col-12">
+        <label for="adresse" class="form-label">Adresse</label>
+        <textarea class="form-control" id="adresse" formControlName="adresse" rows="2" required></textarea>
+      </div>
+      <div class="col-md-6">
+        <label for="typeConsultation" class="form-label">Type de Consultation</label>
+        <select class="form-select" id="typeConsultation" formControlName="typeConsultation" required>
+          <option value="">Choisir...</option>
+          <option value="consultation">Consultation</option>
+          <option value="chirurgie">Chirurgie Médicale</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="typePriseEnCharge" class="form-label">Type de Prise en Charge</label>
+        <select class="form-select" id="typePriseEnCharge" formControlName="typePriseEnCharge" required>
+          <option value="">Choisir...</option>
+          <option value="cnam">Prise en charge CNAM</option>
+          <option value="direct">Paiement direct avec remboursement CNAM</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="dateEntree" class="form-label">Date d'entrée</label>
+        <input type="date" class="form-control" id="dateEntree" formControlName="dateEntree" required>
+        <small class="text-muted" *ngIf="admissionForm.get('dateEntree')?.value">{{ admissionForm.get('dateEntree')?.value | date:'dd/MM/yyyy' }}</small>
+      </div>
+      <div class="col-12">
+        <label for="informationsSoins" class="form-label">Informations de soins</label>
+        <textarea class="form-control" id="informationsSoins" formControlName="informationsSoins" rows="3"></textarea>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="!admissionForm.valid">Enregistrer l'admission</button>
+      </div>
+    </div>
+  </form>
+</div>

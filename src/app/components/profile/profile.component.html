@@ -1,0 +1,153 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <!-- Error Alert -->
+      <div class="alert alert-danger" *ngIf="loadingError" role="alert">
+        {{ formErrors['general'] || 'Une erreur est survenue lors du chargement du profil.' }}
+      </div>
+
+      <!-- Profile Card -->
+      <div class="card shadow-sm" *ngIf="!isLoading; else loading">
+        <!-- Card Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+          <h3 class="mb-0 fs-4">Mon Profil</h3>
+          <button class="btn btn-light" (click)="toggleEdit()" [disabled]="loadingError">
+            <i class="bi" [ngClass]="isEditing ? 'bi-x-lg' : 'bi-pencil'"></i>
+            {{ isEditing ? 'Annuler' : 'Modifier' }}
+          </button>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <!-- View Mode -->
+          <div *ngIf="!isEditing; else editTemplate">
+            <div class="row mb-3" *ngFor="let field of profileFields">
+              <div class="col-sm-3"><strong>{{ field.label }}:</strong></div>
+              <div class="col-sm-9">{{ currentUser?.[field.key] || 'Non renseigné' }}</div>
+            </div>
+          </div>
+
+          <!-- Edit Form -->
+          <ng-template #editTemplate>
+            <form (ngSubmit)="saveProfile()" #profileForm="ngForm" class="needs-validation" novalidate>
+              <!-- Code CNAM (Read-only) -->
+              <div class="mb-3">
+                <label for="codeCnam" class="form-label">Code CNAM</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="codeCnam" 
+                  [value]="currentUser?.codeCnam || ''" 
+                  readonly>
+              </div>
+
+              <!-- Nom -->
+              <div class="mb-3">
+                <label for="nom" class="form-label required">Nom</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  [class.is-invalid]="formErrors['nom']" 
+                  id="nom" 
+                  [(ngModel)]="editForm.nom"
+                  name="nom" 
+                  required 
+                  minlength="2"
+                  #nomInput="ngModel">
+                <div class="invalid-feedback" *ngIf="formErrors['nom']">{{ formErrors['nom'] }}</div>
+              </div>
+
+              <!-- Prénom -->
+              <div class="mb-3">
+                <label for="prenom" class="form-label required">Prénom</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  [class.is-invalid]="formErrors['prenom']" 
+                  id="prenom" 
+                  [(ngModel)]="editForm.prenom"
+                  name="prenom" 
+                  required 
+                  minlength="2"
+                  #prenomInput="ngModel">
+                <div class="invalid-feedback" *ngIf="formErrors['prenom']">{{ formErrors['prenom'] }}</div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label required">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  [class.is-invalid]="formErrors['email']" 
+                  id="email" 
+                  [(ngModel)]="editForm.email"
+                  name="email" 
+                  required 
+                  email
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  #emailInput="ngModel">
+                <div class="invalid-feedback" *ngIf="formErrors['email']">{{ formErrors['email'] }}</div>
+              </div>
+
+              <!-- Téléphone -->
+              <div class="mb-3">
+                <label for="telephone" class="form-label required">Téléphone</label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  [class.is-invalid]="formErrors['numeroTelephone']" 
+                  id="telephone" 
+                  [(ngModel)]="editForm.numeroTelephone" 
+                  name="telephone" 
+                  placeholder="06 12 34 56 78" 
+                  required
+                  pattern="^(?:(?:\+|00)33|0)(?:[ .-]?[1-9])(?:[ .-]?\d{2}){4}$"
+                  #telephone="ngModel">
+                <small class="form-text text-muted">Format: 06 12 34 56 78 ou +33 6 12 34 56 78</small>
+                <div class="invalid-feedback" *ngIf="formErrors['numeroTelephone']">{{ formErrors['numeroTelephone'] }}</div>
+              </div>
+
+              <!-- Adresse -->
+              <div class="mb-3">
+                <label for="adresse" class="form-label">Adresse</label>
+                <textarea 
+                  class="form-control" 
+                  id="adresse" 
+                  [(ngModel)]="editForm.adresse" 
+                  name="adresse" 
+                  rows="3"></textarea>
+              </div>
+
+              <!-- Form Error -->
+              <div class="alert alert-danger" *ngIf="formErrors['general']" role="alert">
+                {{ formErrors['general'] }}
+              </div>
+
+              <!-- Form Actions -->
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-secondary" (click)="toggleEdit()">Annuler</button>
+                <button 
+                  type="submit" 
+                  class="btn btn-primary" 
+                  [disabled]="profileForm.invalid || profileForm.pristine">
+                  <i class="bi bi-save me-1"></i>Enregistrer
+                </button>
+              </div>
+            </form>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Template -->
+<ng-template #loading>
+  <div class="text-center p-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-muted">Chargement du profil...</p>
+  </div>
+</ng-template>

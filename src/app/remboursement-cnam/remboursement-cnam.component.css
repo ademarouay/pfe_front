@@ -1,0 +1,12 @@
+.text-sky-blue {
+    color: #006400;
+  }
+  
+  .footer {
+    margin-top: auto;
+  }
+  
+  .footer a:hover {
+    color: #87CEEB !important;
+    text-decoration: none;
+  }

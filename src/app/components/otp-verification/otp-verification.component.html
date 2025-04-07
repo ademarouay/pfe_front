@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">Vérification OTP</h3>
+          
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+
+          <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="otp" class="form-label">Code OTP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="otp"
+                formControlName="otp"
+                placeholder="Entrez le code à 6 chiffres"
+                [maxLength]="6"
+              >
+              <div *ngIf="otpForm.get('otp')?.errors?.['required'] && otpForm.get('otp')?.touched" class="text-danger">
+                Le code OTP est requis
+              </div>
+              <div *ngIf="otpForm.get('otp')?.errors?.['minlength'] || otpForm.get('otp')?.errors?.['maxlength']" class="text-danger">
+                Le code OTP doit contenir 6 chiffres
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button 
+                type="submit" 
+                class="btn btn-primary" 
+                [disabled]="otpForm.invalid || loading"
+              >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Vérifier
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

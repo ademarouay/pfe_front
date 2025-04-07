@@ -1,0 +1,504 @@
+/* hopital-patients.component.css */
+
+/* --- General Layout & Card --- */
+.container {
+    padding: 20px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    border-radius: 8px;
+    border: none;
+    overflow: hidden; /* Prevents content spill */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+  
+  .card-header { /* Optional: If you add a card header above the table */
+    border-radius: 8px 8px 0 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #e0f2f7 0%, #b3e0e5 100%); /* Example light blue gradient */
+    color: #333;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .card-body {
+    padding: 0; /* Removed padding as table handles it */
+  }
+  
+  /* --- Bootstrap Badge Styling (Keep if needed for general badges) --- */
+  .badge {
+    padding: 0.4em 0.7em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+  /* Customize badge colors */
+  .badge.bg-success { color: white; }
+  .badge.bg-warning.text-dark { color: #333 !important; }
+  .badge.bg-secondary { color: white; }
+  .badge.bg-light.text-dark { color: #333 !important; }
+  
+  /* --- PrimeNG Table Styling --- */
+  :host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
+    padding: 0.8rem 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 2px 0;
+  }
+  
+  :host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
+    padding: 0.7rem 1rem;
+    border: 1px solid #e9ecef;
+    vertical-align: middle;
+    color: #212529;
+    font-size: 0.9rem;
+  }
+  
+  :host ::ng-deep .p-datatable .p-sortable-column:focus {
+     box-shadow: none;
+  }
+  
+  :host ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even):hover {
+    background-color: #f1f3f5 !important;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th,
+  :host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+    border-color: #e9ecef;
+  }
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr:last-child > td {
+    border-bottom: 1px solid #e9ecef;
+  }
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #f1f3f5 !important;
+  }
+  :host ::ng-deep .p-datatable .p-datatable-emptymessage td {
+    padding: 2rem;
+    color: #6c757d;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    font-style: italic;
+  }
+  
+  /* --- Action Buttons Cell & Button Styling (Simpler: Text Only) --- */
+  :host ::ng-deep .actions-cell {
+    text-align: center !important;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center; /* Centers buttons horizontally in the cell */
+    align-items: center; /* Aligns buttons vertically */
+    gap: 0.5rem; /* Consistent space between buttons */
+    padding: 0.4rem 1rem; /* Adjust padding as needed */
+  }
+  
+  /* General Style for the Action Buttons */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm {
+    margin: 0; /* Remove default margins if any */
+    border-radius: 6px; /* Standard rectangular border radius */
+    border: none; /* Remove default border if any */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem; /* Adjust overall button font size */
+    line-height: 1.4; /* Adjust line height */
+    /* PrimeNG handles padding based on label */
+  }
+  
+  /* Hover effect */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Focus style */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--button-focus-ring-color, rgba(70, 130, 180, 0.4));
+  }
+  
+  /* Style for the Label (Text) within the button */
+  :host ::ng-deep .actions-cell .p-button.p-button-sm .p-button-label {
+    display: inline !important; /* Ensure it displays */
+    color: #ffffff; /* Default white label */
+    font-weight: 500;
+  }
+  
+  /* --- Specific Action Button Colors (KEEP THESE) --- */
+  
+  /* Info (Blue) */
+  :host ::ng-deep .actions-cell .p-button.p-button-info {
+    background-color: #0d6efd;
+    --button-focus-ring-color: rgba(13, 110, 253, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-info:hover {
+    background-color: #0b5ed7;
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-info .p-button-label {
+    color: #ffffff !important; /* Ensure label is white */
+  }
+  
+  /* Warning (Yellow) */
+  :host ::ng-deep .actions-cell .p-button.p-button-warning {
+    background-color: #ffc107;
+    --button-focus-ring-color: rgba(255, 193, 7, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-warning:hover {
+    background-color: #e0a800;
+  }
+  /* Warning button needs dark text */
+  :host ::ng-deep .actions-cell .p-button.p-button-warning .p-button-label {
+    color: #343a40 !important; /* Dark label on yellow */
+  }
+  
+  /* Danger (Red) */
+  :host ::ng-deep .actions-cell .p-button.p-button-danger {
+    background-color: #dc3545;
+    --button-focus-ring-color: rgba(220, 53, 69, 0.4);
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-danger:hover {
+    background-color: #bb2d3b;
+  }
+  :host ::ng-deep .actions-cell .p-button.p-button-danger .p-button-label {
+    color: #ffffff !important; /* Ensure label is white */
+  }
+  
+  /* --- Dialog Styling (Modern Look - Enhanced) --- */
+  :host ::ng-deep .modern-dialog .p-dialog {
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header {
+    background: linear-gradient(135deg, #e0f2f7 0%, #b3e0e5 100%);
+    color: #333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1.25rem 1.75rem;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-header-icon {
+    color: rgba(0, 0, 0, 0.6);
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-header .p-dialog-header-icon:hover {
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-content {
+    padding: 2rem 2.5rem;
+    background: #ffffff;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer {
+    padding: 1.25rem 1.75rem;
+    background: #f8f9fa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button {
+    margin-left: 0.5rem;
+    font-weight: 500;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button:first-child {
+    margin-left: 0;
+  }
+  
+  /* --- Dialog Form Element Styling --- */
+  :host ::ng-deep .modern-dialog .field {
+    margin-bottom: 1.5rem;
+  }
+  
+  :host ::ng-deep .modern-dialog .field label.form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    color: #495057;
+    font-size: 0.9rem;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-inputtext,
+  :host ::ng-deep .modern-dialog .field .p-calendar .p-inputtext,
+  :host ::ng-deep .modern-dialog .field .p-dropdown .p-dropdown-label,
+  :host ::ng-deep .modern-dialog .field .p-inputtextarea {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+    color: #212529;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-dropdown {
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      background-color: #ffffff;
+  }
+  :host ::ng-deep .modern-dialog .field .p-dropdown:not(.p-disabled).p-focus {
+      border-color: #87CEEB;
+      box-shadow: 0 0 0 0.2rem rgba(70, 130, 180, 0.25);
+  }
+  :host ::ng-deep .modern-dialog .field .p-dropdown .p-dropdown-clear-icon {
+     color: #6c757d;
+     right: 2.5rem;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-inputtext:enabled:focus,
+  :host ::ng-deep .modern-dialog .field .p-calendar:not(.p-disabled).p-focus .p-inputtext,
+  :host ::ng-deep .modern-dialog .field .p-inputtextarea:enabled:focus {
+    border-color: #87CEEB;
+    box-shadow: 0 0 0 0.2rem rgba(70, 130, 180, 0.25);
+    outline: none;
+  }
+  
+  :host ::ng-deep .modern-dialog .field .p-calendar {
+    width: 100%;
+  }
+  :host ::ng-deep .modern-dialog .field .p-calendar .p-button {
+    border-color: #ced4da;
+    background-color: #e9ecef;
+    color: #495057;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  :host ::ng-deep .modern-dialog .field .p-calendar .p-button:hover {
+    background-color: #ced4da;
+  }
+  
+  :host ::ng-deep .modern-dialog .field input[readonly],
+  :host ::ng-deep .modern-dialog .field textarea[readonly],
+  :host ::ng-deep .modern-dialog .field .p-dropdown.p-disabled,
+  :host ::ng-deep .modern-dialog .field .p-calendar.p-disabled .p-inputtext {
+      background-color: #e9ecef !important;
+      opacity: 0.8;
+      cursor: not-allowed;
+      border-color: #ced4da;
+  }
+  
+  :host ::ng-deep .p-error {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: block;
+    color: #dc3545;
+    font-weight: 500;
+  }
+  
+  /* --- Styling for the Calendar POPUP / OVERLAY --- */
+  :host ::ng-deep .p-datepicker {
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: auto;
+    z-index: 1101 !important; /* Ensure it's above dialog */
+  }
+  :host ::ng-deep .p-datepicker .p-datepicker-header {
+    background-color: #f8f9fa !important;
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+    color: #495057 !important;
+  }
+  :host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title {
+    font-weight: 600;
+    color: #495057 !important;
+    margin: 0 0.5rem;
+  }
+  :host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-prev,
+  :host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-next {
+    color: #6c757d !important;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  :host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-prev:hover,
+  :host ::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-next:hover {
+    background-color: #e9ecef !important;
+  }
+  :host ::ng-deep .p-datepicker table {
+    font-size: 0.9rem;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    background-color: #ffffff !important;
+  }
+  :host ::ng-deep .p-datepicker table th {
+    color: #6c757d !important;
+    font-weight: 500;
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    background-color: #ffffff !important;
+  }
+  :host ::ng-deep .p-datepicker table td {
+    padding: 0.15rem;
+    text-align: center;
+    background-color: #ffffff !important;
+  }
+  :host ::ng-deep .p-datepicker table td > span {
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #495057 !important;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  :host ::ng-deep .p-datepicker table td > span:not(.p-disabled):not(.p-highlight):hover {
+    background-color: #e9ecef !important;
+    color: #0d6efd !important;
+    border-color: transparent;
+  }
+  :host ::ng-deep .p-datepicker table td > span.p-highlight {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+    border-color: #0d6efd !important;
+  }
+  :host ::ng-deep .p-datepicker table td.p-datepicker-today > span:not(.p-highlight) {
+    border: 1px solid #0d6efd !important;
+    background-color: transparent !important;
+    color: #0d6efd !important;
+  }
+  :host ::ng-deep .p-datepicker table td.p-datepicker-today > span.p-highlight {
+    border: none !important;
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+  }
+  :host ::ng-deep .p-datepicker table td > span.p-disabled {
+    opacity: 0.5;
+    cursor: default;
+    background-color: transparent !important;
+    color: #adb5bd !important;
+    border-color: transparent !important;
+  }
+  :host ::ng-deep .p-datepicker table td > span.p-disabled:hover {
+    background-color: transparent !important;
+    color: #adb5bd !important;
+  }
+  
+  /* --- Styling for Dialog Footer Buttons --- */
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-text {
+    color: #6c757d !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-text:hover {
+    color: #495057 !important;
+    background-color: #e9ecef !important;
+    border-color: transparent !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-text:focus-visible {
+    color: #495057 !important;
+    background-color: #e9ecef !important;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5) !important;
+    border-color: transparent !important;
+  }
+  /* Icon rule removed for footer buttons as well if text-only is desired */
+  /* :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-text .p-button-icon { ... } */
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-success {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #ffffff !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-success:hover {
+    background-color: #157347 !important;
+    border-color: #146c43 !important;
+    color: #ffffff !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-success:focus-visible {
+    background-color: #157347 !important;
+    border-color: #146c43 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.2rem rgba(56, 157, 99, 0.5) !important;
+  }
+  /* Icon rule removed */
+  /* :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-success .p-button-icon { ... } */
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-success:disabled {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #ffffff !important;
+    opacity: 0.65;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #343a40 !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-warning:hover {
+    background-color: #e0a800 !important;
+    border-color: #d39e00 !important;
+    color: #343a40 !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-warning:focus-visible {
+    background-color: #e0a800 !important;
+    border-color: #d39e00 !important;
+    color: #343a40 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5) !important;
+  }
+  /* Icon rule removed */
+  /* :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-warning .p-button-icon { ... } */
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-warning:disabled {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #343a40 !important;
+    opacity: 0.65;
+  }
+  
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-secondary {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #ffffff !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-secondary:hover {
+    background-color: #5c636a !important;
+    border-color: #565e64 !important;
+    color: #ffffff !important;
+  }
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-secondary:focus-visible {
+    background-color: #5c636a !important;
+    border-color: #565e64 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5) !important;
+  }
+  /* Icon rule removed */
+  /* :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-secondary .p-button-icon { ... } */
+  :host ::ng-deep .modern-dialog .p-dialog-footer .p-button.p-button-secondary:disabled {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #ffffff !important;
+    opacity: 0.65;
+  }
+  
+  
+  /* --- Fix for PrimeNG Overlays (Dropdown, Calendar) inside Dialog --- */
+  :host ::ng-deep .p-dropdown-panel {
+    z-index: 1101 !important;
+  }
+  :host ::ng-deep .p-datepicker {
+    z-index: 1101 !important;
+  }

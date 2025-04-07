@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h2>Liste des patients</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Traitement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <td>{{ patient.nom }}</td>
+        <td>{{ patient.prenom }}</td>
+        <td>{{ patient.traitement }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

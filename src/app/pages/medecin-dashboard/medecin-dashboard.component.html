@@ -1,0 +1,26 @@
+<div role="main">
+  <div class="container">
+    <h2 style="background-color: #128942; padding: 1.5rem; text-align: center; color: white; border-radius: 12px 12px 0 0; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 1px; font-size: 1.8rem;">Tableau de Bord du Médecin</h2>
+    <div class="row g-4">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">{{ 'dashboard.quickActions' | translate }}</h4>
+          </div>
+          <div class="card-body d-flex flex-wrap gap-3 justify-content-center">
+            <button class="btnn" routerLink="/medecin-dashboard/patients">
+              <i class="fas fa-users"></i> {{ 'dashboard.patients' | translate }}
+            </button>
+            <button class="btnn" routerLink="/medecin-dashboard/prescriptions">
+              <i class="fas fa-prescription"></i> {{ 'dashboard.prescriptions' | translate }}
+            </button>
+            <button class="btnn" routerLink="/medecin-dashboard/profile">
+              <i class="fas fa-user-md"></i> {{ 'dashboard.profile' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

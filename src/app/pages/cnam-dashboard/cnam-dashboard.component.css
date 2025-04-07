@@ -1,0 +1,39 @@
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #fd7e14;
+}
+
+.status-approved {
+  color: #28a745;
+}
+
+.status-rejected {
+  color: #dc3545;
+}

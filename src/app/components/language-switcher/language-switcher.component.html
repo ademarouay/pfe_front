@@ -1,0 +1,13 @@
+<div class="language-switcher">
+  <div class="btn-group d-flex" role="group" aria-label="Language Switcher">
+    <button *ngFor="let lang of languages" 
+            type="button" 
+            class="btn" 
+            [class.btn-primary]="currentLang === lang.code" 
+            [class.btn-outline-primary]="currentLang !== lang.code"
+            (click)="changeLanguage(lang.code)"
+            title="{{ 'language.' + lang.code | translate }}">
+      {{ lang.name }}
+    </button>
+  </div>
+</div>

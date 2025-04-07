@@ -1,0 +1,38 @@
+.hero-section {
+  background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+  padding: 100px 0;
+}
+
+.text-sky-blue {
+  color: #006400;
+}
+
+.bg-sky-blue {
+  background-color: #006400;
+}
+
+.card {
+  transition: transform 0.3s ease;
+  background-color: aliceblue;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.footer a:hover {
+  color: #87CEEB !important;
+  text-decoration: none;
+}
+
+.fas {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .fas {
+  transform: scale(1.1);
+}

@@ -1,0 +1,345 @@
+/* General Layout and Spacing */
+.p-4, .appointment-container, .container {
+  padding: 1rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+/* Card Styles */
+p-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p-card.shadow-2 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p-card.shadow-8:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+p-card.cursor-pointer {
+  cursor: pointer;
+}
+
+p-card.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+p-card.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Flex Layout */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center, .popup {
+  justify-content: center;
+}
+
+/* Text Styles */
+.text-labess {
+  color: #333;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.text-white {
+  color: white;
+}
+
+/* Icon Styles */
+.pi {
+  font-size: 1.5rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+}
+
+/* Gradient Header */
+p-card > .p-card-header > .flex {
+  border-radius: 8px;
+  background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.2);
+}
+
+/* New Prescription Dialog */
+.custom-new-prescription {
+  background-color: #98c2a1 !important;
+  border-color: #4CAF50 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.custom-dialog .p-dialog-header {
+  background-color: var(--labess-dark) !important;
+  color: #ffffff !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.custom-dialog .p-dialog-content {
+  background-color: var(--labess-gray) !important;
+  padding: 2rem !important;
+  border-radius: 8px !important;
+  color: var(--labess-dark) !important;
+}
+
+.custom-input, .custom-textarea {
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  width: 100% !important;
+}
+
+.custom-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.custom-dropdown {
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+}
+
+/* Search Input */
+.p-input-icon-left {
+  position: relative;
+}
+
+.p-input-icon-left i {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.p-3 {
+  padding: 0.75rem;
+}
+
+.border-round-2xl {
+  border-radius: 1rem;
+}
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover\:border-primary:hover,
+.focus\:border-primary:focus {
+  border-color: #28a745;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: sans-serif;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Table Card Styles */
+p-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+/* Table Card Header */
+p-card > .p-card-header > .flex {
+  border-radius: 8px;
+  background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.2);
+}
+
+/* Table Input and Dropdown */
+.grid.p-fluid.mb-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.p-input-icon-left {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.p-input-icon-left i {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.p-input-icon-left input {
+  padding-left: 2.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid #ddd;
+  font-size: 1.1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* Appointment container */
+.appointment-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ... (rest of your CSS) ... */
+
+/* Action Buttons */
+.actions-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.actions-wrapper button { /* Styles for all buttons inside actions-wrapper */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.actions-wrapper button:nth-child(1) { /* First button (Voir) */
+  background-color: #28a745;
+  color: white;
+}
+
+.actions-wrapper button:nth-child(2) { /* Second button (Modifier) */
+  background-color: #28a745;
+  color: white;
+}
+
+actions-wrapper button:nth-child(3) { /* Third button (Supprimer) */
+  background-color: #dc3545;
+  color: white;
+}
+
+.actions-wrapper button:hover {
+  opacity: 0.9;
+}
+
+/* Content and Commentaire Wrapper */
+.contenu-wrapper {
+  line-height: 1.5;
+}
+
+.commentaire-wrapper {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+/* Modal Buttons */
+.p-button-text.p-button-secondary { /* Fermer button */
+  background-color: var(--labess-gray);
+  color: var(--labess-dark);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.p-button-success { /* Sauvegarder button */
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.p-button-success:hover, .p-button-text.p-button-secondary:hover {
+  opacity: 0.9;
+}
+
+/* Modal Form Labels on Top */
+.p-float-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-float-label label {
+  order: -1;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+
