@@ -1,1 +1,19 @@
-<p>footer works!</p>
+<footer class="footer mt-auto py-3" [ngStyle]="{'background-color': isDarkTheme ? '#222222' : 'aliceblue'}">  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>{{ 'footer.quickLinks' | translate }}</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'footer.home' | translate }}</a></li>
+          <li><a href="/about" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'footer.aboutUs' | translate }}</a></li>
+          <li><a href="/services" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'footer.services' | translate }}</a></li>
+          <li><a href="/contact" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'footer.contact' | translate }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <p>{{ 'footer.copyright' | translate }}</p>
+    </div>
+  </div>
+</footer>
+

@@ -2,44 +2,70 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
+        <div class="card-header text-white text-center">
+          <fa-icon [icon]="faLock" class="me-2" size="lg"></fa-icon>
+          <h4 class="mb-0 d-inline-block">Vérification OTP</h4>
+        </div>
         <div class="card-body">
-          <h3 class="card-title text-center mb-4">Vérification OTP</h3>
+          <div class="text-center mb-4">
+            <fa-icon [icon]="faEnvelope" size="2x" class="text-primary mb-3"></fa-icon>
+            <p class="text-muted">
+              Un code de vérification à 6 chiffres a été envoyé à votre adresse email.
+              <br>Ce code est valable pendant 15 minutes.
+            </p>
+          </div>
           
           <div *ngIf="errorMessage" class="alert alert-danger">
+            <fa-icon [icon]="faCircleExclamation" class="me-2"></fa-icon>
             {{ errorMessage }}
           </div>
-          
           <div *ngIf="successMessage" class="alert alert-success">
+            <fa-icon [icon]="faCircleCheck" class="me-2"></fa-icon>
             {{ successMessage }}
           </div>
-
-          <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="otp" class="form-label">Code OTP</label>
-              <input
-                type="text"
-                class="form-control"
-                id="otp"
-                formControlName="otp"
-                placeholder="Entrez le code à 6 chiffres"
-                [maxLength]="6"
-              >
-              <div *ngIf="otpForm.get('otp')?.errors?.['required'] && otpForm.get('otp')?.touched" class="text-danger">
-                Le code OTP est requis
+          <div *ngIf="invalidCharMessage" class="alert alert-warning">
+            <fa-icon [icon]="faCircleExclamation" class="me-2"></fa-icon>
+            {{ invalidCharMessage }}
+          </div>
+          
+          <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="form">
+            <div class="form-group mb-4">
+              <label for="otp" class="form-label">Code de vérification</label>
+              <div class="position-relative">
+                <input 
+                  type="text" 
+                  id="otp" 
+                  formControlName="otp" 
+                  class="form-control text-center"
+                  placeholder="• • • • • •"
+                  maxlength="6"
+                  autocomplete="off"
+                  (keypress)="onKeyPress($event)">
               </div>
-              <div *ngIf="otpForm.get('otp')?.errors?.['minlength'] || otpForm.get('otp')?.errors?.['maxlength']" class="text-danger">
-                Le code OTP doit contenir 6 chiffres
+              <div *ngIf="otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched" class="text-danger mt-2">
+                <small *ngIf="otpForm.get('otp')?.errors?.['required']">
+                  <fa-icon [icon]="faCircleExclamation" class="me-1"></fa-icon>
+                  Le code OTP est requis
+                </small>
+                <small *ngIf="otpForm.get('otp')?.errors?.['minlength']">
+                  <fa-icon [icon]="faCircleExclamation" class="me-1"></fa-icon>
+                  Le code OTP doit contenir 6 chiffres
+                </small>
+                <small *ngIf="otpForm.get('otp')?.errors?.['pattern']">
+                  <fa-icon [icon]="faCircleExclamation" class="me-1"></fa-icon>
+                  Le code OTP doit contenir uniquement des chiffres
+                </small>
               </div>
             </div>
-
+            
             <div class="d-grid gap-2">
               <button 
                 type="submit" 
-                class="btn btn-primary" 
-                [disabled]="otpForm.invalid || loading"
-              >
+                [ngClass]="{'btn-primary': !loading, 'btn-secondary': loading}"
+                class="btn btn-primary"
+                [disabled]="loading || otpForm.invalid">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Vérifier
+                {{ loading ? 'Vérification...' : 'Vérifier' }}
               </button>
             </div>
           </form>

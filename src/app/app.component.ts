@@ -15,14 +15,21 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'front-end-labess';
-  showHeader = true; // Par défaut, l'en-tête est affiché
-  constructor(private translate: TranslateService,private router: Router) {}
+  showHeader = true;
+  currentLang = 'fr';
+
+  constructor(private translate: TranslateService, private router: Router) {}
+
   ngOnInit() {
     this.router.events
       .pipe(filter((event: any) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.showHeader = !this.router.url.includes('/login'); // Ne pas afficher si l'URL contient '/login'
+        this.showHeader = !this.router.url.includes('/login');
         this.translate.setDefaultLang('fr');
+        this.translate.onLangChange.subscribe(event => {
+          this.currentLang = event.lang;
+          document.documentElement.setAttribute('class', event.lang === 'ar' ? 'rtl' : '');
+        });
       });
 
 }}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export type Language = 'fr' | 'en' | 'ar';
+export type Language = 'fr' | 'ar';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class LanguageService {
 
   private getBrowserLang(): Language | null {
     const browserLang = navigator.language.split('-')[0];
-    return (browserLang === 'fr' || browserLang === 'en' || browserLang === 'ar') 
+    return (browserLang === 'fr' || browserLang === 'ar') 
       ? browserLang as Language 
       : null;
   }

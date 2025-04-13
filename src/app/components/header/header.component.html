@@ -9,20 +9,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/home" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/home" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'commonPages.home' | translate }} <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./../../remboursement-cnam" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Droit de remboursement</a>
+          <a class="nav-link" href="./../../remboursement-cnam" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'cnam.title' | translate }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/demande-plafond" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Demande de plafond</a>
+          <a class="nav-link" routerLink="/demande-plafond" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'cnam.pendingReimbursements' | translate }}</a>
         </li>
         <li class="nav-item" *ngIf="currentUser">
-          <a class="nav-link" routerLink="/profile" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Profile</a>
+          <a class="nav-link" routerLink="/profile" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'commonPages.profile' | translate }}</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-
         <li class="nav-item">
           <button class="btn btn-link nav-link" (click)="toggleTheme()" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">
             <i [ngClass]="isDarkTheme ? 'bi bi-sun-fill' : 'bi bi-moon-fill'"></i>
@@ -32,7 +31,7 @@
           <app-language-switcher [ngStyle]="{'color': isDarkTheme ? 'white' : 'white'}"></app-language-switcher>
         </li>
         <li class="nav-item" *ngIf="currentUser">
-          <button class="btn btn-link nav-link" (click)="logout()" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">Logout</button>
+          <button class="btn btn-link nav-link" (click)="logout()" [ngStyle]="{'color': isDarkTheme ? 'white' : 'green'}">{{ 'commonPages.logout' | translate }}</button>
         </li>
       </ul>
     </div>

@@ -9,6 +9,7 @@ import { PharmacienDashboardComponent } from './pages/pharmacien-dashboard/pharm
 import { CnamDashboardComponent } from './pages/cnam-dashboard/cnam-dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component'; 
 import { RemboursementCnamComponent } from './remboursement-cnam/remboursement-cnam.component';
+import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { HOPITALISATION_ROUTES } from './pages/kinesitherapeute-dashboard/hopitalisation-dashboard.routes';
 import { MEDECIN_ROUTES } from './pages/medecin-dashboard/medecin-dashboard.routes';
 import { LABORATOIRE_ROUTES } from './pages/laboratoire-dashboard/laboratoire-dashboard.routes';
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'preinscription', component: PreinscriptionComponent },
+  { path: 'otp-verification', component: OtpVerificationComponent },
   { path: 'home', component: HomeComponent },
   { path: 'remboursement-cnam', component: RemboursementCnamComponent },
   

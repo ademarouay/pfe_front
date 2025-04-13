@@ -1,3 +1,5 @@
+/* src/app/components/home/home.component.css */
+
 .hero-section {
   background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
   padding: 100px 0;
@@ -12,12 +14,50 @@
 }
 
 .card {
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   background-color: aliceblue;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover .icon-circle {
+  transform: scale(1.1);
+}
+
+.card-body ul li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.card-title {
+  color: var(--labess-primary);
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: var(--labess-dark);
+  opacity: 0.8;
 }
 
 .footer {
@@ -35,4 +75,153 @@
 
 .card:hover .fas {
   transform: scale(1.1);
+}
+
+/* Gemini Assistant Styles (Modified) */
+#gemini-assistant-section .card {
+  border: 2px solid var(--labess-secondary); /* Primary color replaced with secondary */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#gemini-assistant-section .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#gemini-assistant-section .card-header {
+  background-color: var(--labess-secondary);  /* Primary color replaced with secondary */
+  color: var(--labess-white);
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--labess-accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#gemini-assistant-section .card-header i {
+  font-size: 1.25rem;
+}
+
+#gemini-assistant-section .card-body {
+  padding: 1.5rem;
+}
+
+#gemini-assistant-section .form-label {
+  color: var(--labess-dark); /* or a lighter shade if needed */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#gemini-assistant-section .form-control {
+  border: 1px solid var(--labess-border);
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#gemini-assistant-section .form-control:focus {
+  border-color: var(--labess-secondary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--labess-secondary-rgb), 0.25); /* Corrected use of RGB var */
+  outline: 0;
+}
+
+#gemini-assistant-section .btn-info {
+  background-color: var(--labess-secondary);
+  color: var(--labess-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#gemini-assistant-section .btn-info:hover {
+  background-color: var(--labess-accent);
+  color: var(--labess-dark); /* Adjusted for better contrast */
+}
+
+#gemini-assistant-section .btn-info:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#gemini-assistant-section .alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
+
+#gemini-assistant-section .response-box {
+  background-color: var(--labess-gray);
+  border: 1px solid var(--labess-border);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--labess-dark);
+}
+
+#gemini-assistant-section .response-box p {
+  margin-bottom: 0;
+}
+
+/* Spinner Adjustment for visibility */
+#gemini-assistant-section .spinner-border {
+    color: var(--labess-white); /* Ensure spinner is visible */
+}
+
+
+/* Dark theme adjustments for Gemini */
+body.dark-theme #gemini-assistant-section .card {
+    border-color: var(--labess-accent);
+    background-color: var(--labess-dark);
+    color: var(--labess-white);
+}
+
+body.dark-theme #gemini-assistant-section .card-header {
+    background-color: var(--labess-dark);
+    color: var(--labess-white);
+    border-bottom-color: var(--labess-secondary);
+}
+
+body.dark-theme #gemini-assistant-section .form-control {
+    background-color: #333;
+    color: var(--labess-white);
+    border-color: #555;
+}
+
+body.dark-theme #gemini-assistant-section .form-control:focus {
+    border-color: var(--labess-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 178, 49, 0.25);
+}
+
+body.dark-theme #gemini-assistant-section .btn-info {
+    background-color: var(--labess-secondary);
+    color: var(--labess-white);
+}
+
+body.dark-theme #gemini-assistant-section .btn-info:hover {
+    background-color: var(--labess-accent);
+    color: #333; /* or var(--labess-dark) if defined */
+}
+
+body.dark-theme #gemini-assistant-section .alert-warning {
+    background-color: #424242;
+    border-color: #555;
+    color: #ffc107;
+}
+
+body.dark-theme #gemini-assistant-section .response-box {
+    background-color: #424242;
+    border-color: #555;
+    color: var(--labess-white);
 }

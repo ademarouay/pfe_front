@@ -1,174 +1,288 @@
-<div class="container mt-4">
-  <h2 class="mb-4">Tableau de bord CNAM</h2>
+<div class="dashboard-container">
+  <h2 class="dashboard-title mb-4">Tableau de bord CNAM</h2>
 
-  <!-- Stats Overview -->
+    <!-- Stats Overview -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="glass-card stats-card animate-card">
+          <div class="card-body-modern">
+            <div class="stats-icon-wrapper">
+              <i class="fas fa-file-medical fa-2x text-dark-green"></i>
+            </div>
+            <div class="stats-content">
+              <h5 class="stats-title">Ordonnances en attente</h5>
+              <h2 class="stats-value">{{ pendingPrescriptionsCount || 0 }}</h2>
+              <p class="stats-description">Ordonnances à valider</p>
+            </div>
+            <div class="stats-trend">
+              <i class="fas fa-arrow-up"></i>
+              <span>+5% cette semaine</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="glass-card stats-card animate-card">
+          <div class="card-body-modern">
+            <div class="stats-icon-wrapper">
+              <i class="fas fa-check-circle fa-2x text-dark-green"></i>
+            </div>
+            <div class="stats-content">
+              <h5 class="stats-title">Remboursements traités</h5>
+              <h2 class="stats-value">{{ processedReimbursementsCount || 0 }}</h2>
+              <p class="stats-description">Remboursements approuvés</p>
+            </div>
+            <div class="stats-trend">
+              <i class="fas fa-arrow-up"></i>
+              <span>+12% ce mois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="glass-card stats-card animate-card">
+          <div class="card-body-modern">
+            <div class="stats-icon-wrapper">
+              <i class="fas fa-money-bill-wave fa-2x text-dark-green"></i>
+            </div>
+            <div class="stats-content">
+              <h5 class="stats-title">Montant total</h5>
+              <h2 class="stats-value">{{ totalReimbursementAmount | currency:'TND ':'symbol':'1.0-2' }}</h2>
+              <p class="stats-description">Montant total remboursé</p>
+            </div>
+            <div class="stats-trend">
+              <i class="fas fa-arrow-up"></i>
+              <span>+8% ce mois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Filtres pour les ordonnances -->
   <div class="row mb-4">
-    <div class="col-md-4">
-      <div class="card bg-primary text-white">
-        <div class="card-body">
-          <h5 class="card-title">Ordonnances en attente</h5>
-          <h2 class="display-4">{{ pendingPrescriptionsCount || 0 }}</h2>
-          <p class="card-text">Ordonnances à valider</p>
+    <div class="col-md-12">
+      <div class="glass-card filter-card">
+        <div class="card-header-modern">
+          <i class="fas fa-filter me-2"></i>
+          <h4 class="mb-0">Filtrer les ordonnances</h4>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-success text-white">
-        <div class="card-body">
-          <h5 class="card-title">Remboursements traités</h5>
-          <h2 class="display-4">{{ processedReimbursementsCount || 0 }}</h2>
-          <p class="card-text">Remboursements approuvés</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-info text-white">
-        <div class="card-body">
-          <h5 class="card-title">Montant total</h5>
-          <h2 class="display-4">{{ totalReimbursementAmount | currency:'TND ':'symbol':'1.0-2' }}</h2>
-          <p class="card-text">Montant total remboursé</p>
+        <div class="card-body-modern">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="modern-form-group">
+                <label for="doctorFilter" class="modern-label">Nom du médecin</label>
+                <div class="input-icon-wrapper">
+                  <i class="fas fa-user-md"></i>
+                  <input type="text" class="modern-input" id="doctorFilter" [(ngModel)]="filterDoctorName" (ngModelChange)="onFilterChange()" placeholder="Filtrer par médecin">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="modern-form-group">
+                <label for="patientFilter" class="modern-label">Nom du patient</label>
+                <div class="input-icon-wrapper">
+                  <i class="fas fa-user"></i>
+                  <input type="text" class="modern-input" id="patientFilter" [(ngModel)]="filterPatientName" (ngModelChange)="onFilterChange()" placeholder="Filtrer par patient">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Pending Prescriptions -->
+
+  <div class="card-header-modern d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <i class="fas fa-clipboard-list me-2"></i>
+      <h5 class="mb-0">Ordonnances en attente de validation</h5>
+    </div>
+    <div class="header-actions">
+      <button class="btn-modern btn-secondary" (click)="loadPendingPrescriptions()">
+        <i class="fas fa-sync-alt"></i>
+        Actualiser
+      </button>
+    </div>
+  </div>
+  <div class="card-body-modern">
+    <div *ngIf="loading.pendingPrescriptions" class="loading-overlay">
+      <div class="spinner-modern">
+        <div class="spinner-ring"></div>
+        <span>Chargement...</span>
+      </div>
+    </div>
+    <div *ngIf="error.pendingPrescriptions" class="alert alert-modern alert-danger">
+      <i class="fas fa-exclamation-circle me-2"></i>
+      {{ error.pendingPrescriptions }}
+    </div>
+    <div *ngIf="!loading.pendingPrescriptions && !error.pendingPrescriptions && pendingPrescriptions.length === 0" class="empty-state">
+      <i class="fas fa-inbox fa-3x mb-3"></i>
+      <p>Aucune ordonnance en attente pour le moment.</p>
+    </div>
+    <div class="table-modern-wrapper" *ngIf="!loading.pendingPrescriptions && pendingPrescriptions.length > 0">
+      <table class="table-modern">
+        <thead>
+          <tr>
+            <th><i class="fas fa-hashtag me-2"></i>Référence</th>
+            <th><i class="fas fa-user me-2"></i>Patient</th>
+            <th><i class="fas fa-tag me-2"></i>Type</th>
+            <th><i class="fas fa-user-md me-2"></i>Médecin</th>
+            <th><i class="fas fa-calendar me-2"></i>Date de création</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prescription of pendingPrescriptions" class="animate-row">
+            <td><span class="reference-badge">{{ prescription.reference }}</span></td>
+            <td>
+              <div class="patient-info">
+                <span class="patient-name">{{ prescription.patientName }}</span>
+                <span class="patient-code">{{ prescription.patientCodeCnam }}</span>
+              </div>
+            </td>
+            <td><span class="type-badge" [ngClass]="prescription.type.toLowerCase()">{{ prescription.type }}</span></td>
+            <td>{{ prescription.doctorName }}</td>
+            <td>{{ prescription.creationDate | date:'short' }}</td>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Liste des remboursements en attente -->
   <div class="row mb-4">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header bg-light">
-          <h5 class="mb-0">Ordonnances en attente de validation</h5>
+      <div class="glass-card prescriptions-card">
+        <div class="card-header-modern d-flex justify-content-between align-items-center">
+          <h4 class="mb-0"><i class="fas fa-list me-2"></i>Liste des demandes de remboursements</h4>
         </div>
-        <div class="card-body">
-          <div *ngIf="loading.pendingPrescriptions" class="text-center">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Chargement...</span>
-            </div>
-          </div>
-          <div *ngIf="error.pendingPrescriptions" class="alert alert-danger">
-            {{ error.pendingPrescriptions }}
-          </div>
-          <div *ngIf="!loading.pendingPrescriptions && !error.pendingPrescriptions && pendingPrescriptions.length === 0" class="text-center">
-            <p>Aucune ordonnance en attente pour le moment.</p>
-          </div>
-          <div class="table-responsive" *ngIf="!loading.pendingPrescriptions && pendingPrescriptions.length > 0">
-            <table class="table table-hover">
+        <div class="card-body-modern">
+          <div class="table-modern-wrapper">
+            <table class="table table-modern">
               <thead>
                 <tr>
                   <th>Référence</th>
                   <th>Patient</th>
-                  <th>Type</th>
-                  <th>Médecin</th>
-                  <th>Date de création</th>
+                  <th>Code CNAM</th>
+                  <th>Montant</th>
+                  <th>Date</th>
+                  <th>Statut</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let prescription of pendingPrescriptions">
-                  <td>{{ prescription.reference }}</td>
-                  <td>{{ prescription.patientName }} ({{ prescription.patientCodeCnam }})</td>
-                  <td>{{ prescription.type }}</td>
-                  <td>{{ prescription.doctorName }}</td>
-                  <td>{{ prescription.creationDate | date:'short' }}</td>
+                <tr *ngFor="let reimbursement of recentReimbursements">
+                  <td><span class="reference-badge">{{ reimbursement.reference }}</span></td>
                   <td>
-                    <button class="btn btn-sm btn-success me-1">Valider</button>
-                    <button class="btn btn-sm btn-danger me-1">Refuser</button>
-                    <button class="btn btn-sm btn-outline-secondary">Détails</button>
+                    <div class="patient-info">
+                      <span class="patient-name">{{ reimbursement.patientName }}</span>
+                    </div>
+                  </td>
+                  <td>{{ reimbursement.patientCodeCnam }}</td>
+                  <td>{{ reimbursement.amount | currency:'TND ':'symbol':'1.0-2' }}</td>
+                  <td>{{ reimbursement.date | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                    <span class="status-badge" [ngClass]="reimbursement.statusClass">
+                      <i class="fas" [ngClass]="{
+                        'fa-clock': reimbursement.status === 'En attente',
+                        'fa-check': reimbursement.status === 'Approuvé',
+                        'fa-times': reimbursement.status === 'Rejeté'
+                      }"></i>
+                      {{ reimbursement.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-icon btn-view" title="Voir les détails">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon btn-approve" title="Approuver">
+                        <i class="fas fa-check"></i>
+                      </button>
+                      <button class="btn-icon btn-reject" title="Rejeter">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Voir toutes les ordonnances</a>
-        </div>
       </div>
     </div>
   </div>
+
+       
 
   <!-- Recent Reimbursements -->
   <div class="row mb-4">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-light">
-          <h5 class="mb-0">Remboursements récents</h5>
+    <div class="col-md-12">
+      <div class="glass-card reimbursements-card">
+        <div class="card-header-modern d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-hand-holding-usd me-2"></i>
+            <h5 class="mb-0">Remboursements récents</h5>
+          </div>
+          <div class="header-actions">
+            <button class="btn-modern btn-secondary" (click)="loadRecentReimbursements()">
+              <i class="fas fa-sync-alt"></i>
+              Actualiser
+            </button>
+          </div>
         </div>
-        <div class="card-body">
-          <div *ngIf="loading.recentReimbursements" class="text-center">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Chargement...</span>
+        <div class="card-body-modern">
+          <div *ngIf="loading.recentReimbursements" class="loading-overlay">
+            <div class="spinner-modern">
+              <div class="spinner-ring"></div>
+              <span>Chargement...</span>
             </div>
           </div>
-          <div *ngIf="error.recentReimbursements" class="alert alert-danger">
+          <div *ngIf="error.recentReimbursements" class="alert alert-modern alert-danger">
+            <i class="fas fa-exclamation-circle me-2"></i>
             {{ error.recentReimbursements }}
           </div>
-          <div *ngIf="!loading.recentReimbursements && !error.recentReimbursements && recentReimbursements.length === 0" class="text-center">
-            <p>Aucun remboursement récent à afficher.</p>
+          <div *ngIf="!loading.recentReimbursements && !error.recentReimbursements && recentReimbursements.length === 0" class="empty-state">
+            <i class="fas fa-inbox fa-3x mb-3"></i>
+            <p>Aucun remboursement récent.</p>
           </div>
-          <ul class="list-group" *ngIf="!loading.recentReimbursements && recentReimbursements.length > 0">
-            <li *ngFor="let reimbursement of recentReimbursements" class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-0">{{ reimbursement.reference }}</h6>
-                  <small class="text-muted">Patient: {{ reimbursement.patientName }} ({{ reimbursement.patientCodeCnam }})</small>
-                </div>
-                <div>
-                  <span class="badge" [ngClass]="reimbursement.statusClass">{{ reimbursement.status }}</span>
-                </div>
-              </div>
-              <div class="mt-2">
-                <div class="d-flex justify-content-between">
-                  <small>{{ reimbursement.date | date:'short' }}</small>
-                  <strong>{{ reimbursement.amount | currency:'TND ':'symbol':'1.0-2' }}</strong>
-                </div>
-                <div class="d-flex justify-content-end mt-2">
-                  <button class="btn btn-sm btn-outline-primary">Voir détails</button>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Voir tous les remboursements</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Statistics -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-light">
-          <h5 class="mb-0">Statistiques de remboursement</h5>
-        </div>
-        <div class="card-body">
-          <div *ngIf="loading.statistics" class="text-center">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Chargement...</span>
-            </div>
+          <div class="table-modern-wrapper" *ngIf="!loading.recentReimbursements && recentReimbursements.length > 0">
+            <table class="table-modern">
+              <thead>
+                <tr>
+                  <th><i class="fas fa-hashtag me-2"></i>Référence</th>
+                  <th><i class="fas fa-user me-2"></i>Patient</th>
+                  <th><i class="fas fa-money-bill me-2"></i>Montant</th>
+                  <th><i class="fas fa-calendar me-2"></i>Date</th>
+                  <th><i class="fas fa-info-circle me-2"></i>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reimbursement of recentReimbursements" class="animate-row">
+                  <td><span class="reference-badge">{{ reimbursement.reference }}</span></td>
+                  <td>
+                    <div class="patient-info">
+                      <span class="patient-name">{{ reimbursement.patientName }}</span>
+                      <span class="patient-code">{{ reimbursement.patientCodeCnam }}</span>
+                    </div>
+                  </td>
+                  <td>{{ reimbursement.amount | currency:'TND ':'symbol':'1.0-2' }}</td>
+                  <td>{{ reimbursement.date | date:'short' }}</td>
+                  <td>
+                    <span class="status-badge" [ngClass]="'status-' + reimbursement.status.toLowerCase()">
+                      {{ reimbursement.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div *ngIf="error.statistics" class="alert alert-danger">
-            {{ error.statistics }}
-          </div>
-          <div *ngIf="!loading.statistics && !error.statistics && statistics.length === 0" class="text-center">
-            <p>Aucune statistique disponible pour le moment.</p>
-          </div>
-          <div *ngIf="!loading.statistics && statistics.length > 0">
-            <div *ngFor="let stat of statistics" class="mb-4">
-              <div class="d-flex justify-content-between mb-1">
-                <h6 class="mb-0">{{ stat.title }}</h6>
-                <span>{{ stat.count }} demandes | {{ stat.amount | currency:'TND ':'symbol':'1.0-2' }}</span>
-              </div>
-              <div class="progress">
-                <div class="progress-bar bg-{{ stat.color }}" role="progressbar" [style.width.%]="stat.percentage" [attr.aria-valuenow]="stat.percentage" aria-valuemin="0" aria-valuemax="100">{{ stat.percentage }}%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Voir toutes les statistiques</a>
         </div>
       </div>
     </div>
   </div>
-</div>
+

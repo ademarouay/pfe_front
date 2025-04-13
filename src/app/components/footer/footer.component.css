@@ -1,0 +1,32 @@
+.footer {
+  direction: ltr;
+  padding: 20px 0;
+}
+
+.footer h5 {
+  color: #006400;
+  margin-bottom: 15px;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 10px;
+}
+
+.footer ul li a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer ul li a:hover {
+  color: #004d00;
+}
+
+.footer .text-center {
+  margin-top: 20px;
+  color: #666;
+}

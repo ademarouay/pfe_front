@@ -14,7 +14,6 @@ export class LanguageSwitcherComponent implements OnInit {
   currentLang: Language = 'fr';
   languages: {code: Language, name: string}[] = [
     { code: 'fr', name: 'FR' },
-    { code: 'en', name: 'EN' },
     { code: 'ar', name: 'عربي' }
   ];
 

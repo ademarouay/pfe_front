@@ -93,13 +93,8 @@ export class PreinscriptionComponent implements OnInit {
     this.authService.verifyOtp(request).subscribe({
       next: (response) => {
         this.loading = false;
-        this.successMessage = 'Préinscription confirmée avec succès! Vous allez être redirigé vers la page de connexion.';
         this.otpService.clearTempCodeCnam();
-
-        // Redirect to login page after successful verification
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         this.loading = false;

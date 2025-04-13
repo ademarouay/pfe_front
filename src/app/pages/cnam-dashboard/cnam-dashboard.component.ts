@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Statistic } from '../../models/statistic.interface';
 
 interface PendingPrescription {
   id: number;
@@ -23,12 +25,33 @@ interface Reimbursement {
   statusClass: string;
 }
 
-interface Statistic {
-  title: string;
-  count: number;
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  active: boolean;
+}
+
+interface LaboratoryInvoice {
+  laboratoryName: string;
+  date: Date;
   amount: number;
-  percentage: number;
-  color: string;
+  invoiceNumber: string;
+}
+
+interface PharmacyInvoice {
+  pharmacyName: string;
+  date: Date;
+  amount: number;
+  invoiceNumber: string;
+}
+
+interface CeilingRequest {
+  date: Date;
+  patientName: string;
+  status: string;
+  statusClass: string;
 }
 
 @Component({
@@ -36,45 +59,87 @@ interface Statistic {
   templateUrl: './cnam-dashboard.component.html',
   styleUrls: ['./cnam-dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, DatePipe, CurrencyPipe]
+  imports: [CommonModule, FormsModule,  DatePipe, CurrencyPipe]
 })
 export class CnamDashboardComponent implements OnInit {
+  // Filtres
+  filterDoctorName: string = '';
+  filterPatientName: string = '';
+  filterPharmacyName: string = '';
+
+  // Compteurs
   pendingPrescriptionsCount: number = 0;
   processedReimbursementsCount: number = 0;
   totalReimbursementAmount: number = 0;
-  
-  pendingPrescriptions: PendingPrescription[] = [];
-  recentReimbursements: Reimbursement[] = [];
-  statistics: Statistic[] = [];
-  
+
+  // États de chargement et erreurs
   loading = {
     pendingPrescriptions: false,
     recentReimbursements: false,
     statistics: false
   };
-  
+
   error = {
     pendingPrescriptions: '',
     recentReimbursements: '',
     statistics: ''
   };
 
+  // Données
+  pendingPrescriptions: PendingPrescription[] = [];
+  recentReimbursements: Reimbursement[] = [];
+  statistics: Statistic[] = [];
+  ceilingRequests: CeilingRequest[] = [];
+
+  // Propriétés pour le plafond
+  currentCeiling: number = 0;
+  requestedCeiling: number = 0;
+  status: string = '';
+  statusClass: string = '';
+
   constructor() {}
+
+  approveReimbursement(id: number) {
+    // Trouver le remboursement à approuver
+    const reimbursement = this.recentReimbursements.find(r => r.id === id);
+    if (reimbursement) {
+      // Mettre à jour le statut
+      reimbursement.status = 'Approuvé';
+      reimbursement.statusClass = 'status-approved';
+
+      // Mettre à jour les compteurs
+      this.processedReimbursementsCount++;
+      this.totalReimbursementAmount += reimbursement.amount;
+    }
+  }
+
+  // Méthode pour rejeter un remboursement
+  rejectReimbursement(id: number): void {
+    const reimbursement = this.recentReimbursements.find(r => r.id === id);
+    if (reimbursement) {
+      reimbursement.status = 'Rejeté';
+      reimbursement.statusClass = 'status-rejected';
+      // Ici, vous pouvez ajouter l'appel au service pour mettre à jour le statut dans la base de données
+    }
+  }
 
   ngOnInit(): void {
     this.loadPendingPrescriptions();
     this.loadRecentReimbursements();
-    // Initialize statistics with mock data
+    this.initializeStatistics();
+  }
+
+  public initializeStatistics(): void {
     this.statistics = [
       {
-        title: 'Pending Prescriptions',
+        title: 'Ordonnances en attente',
         count: this.pendingPrescriptionsCount,
         amount: 0,
         percentage: 30,
         color: 'bg-warning'
       },
       {
-        title: 'Processed Reimbursements',
+        title: 'Remboursements traités',
         count: this.processedReimbursementsCount,
         amount: this.totalReimbursementAmount,
         percentage: 70,
@@ -86,10 +151,10 @@ export class CnamDashboardComponent implements OnInit {
   loadPendingPrescriptions(): void {
     this.loading.pendingPrescriptions = true;
     this.error.pendingPrescriptions = '';
-    
+
     // Simulate API call with mock data
     setTimeout(() => {
-      this.pendingPrescriptions = [
+      const allPrescriptions = [
         {
           id: 1,
           reference: 'PRES-2023-001',
@@ -118,6 +183,8 @@ export class CnamDashboardComponent implements OnInit {
           creationDate: new Date(Date.now() - 259200000) // 3 days ago
         },
       ];
+      // Appliquer les filtres aux prescriptions
+      this.pendingPrescriptions = this.filterPrescriptions();
       this.pendingPrescriptionsCount = this.pendingPrescriptions.length;
       this.loading.pendingPrescriptions = false;
     }, 1000);
@@ -126,7 +193,7 @@ export class CnamDashboardComponent implements OnInit {
   loadRecentReimbursements(): void {
     this.loading.recentReimbursements = true;
     this.error.recentReimbursements = '';
-    
+
     // Simulate API call with mock data
     setTimeout(() => {
       this.recentReimbursements = [
@@ -167,5 +234,31 @@ export class CnamDashboardComponent implements OnInit {
         .reduce((sum, r) => sum + r.amount, 0);
       this.loading.recentReimbursements = false;
     }, 1000);
+  }
+
+  // Méthodes pour gérer les demandes de plafond
+  approveCeilingRequest(request: CeilingRequest): void {
+    request.status = 'APPROUVÉ';
+    request.statusClass = 'bg-success';
+  }
+
+  rejectCeilingRequest(request: CeilingRequest): void {
+    request.status = 'REJETÉ';
+    request.statusClass = 'bg-danger';
+  }
+
+  onFilterChange(): void {
+    this.loadPendingPrescriptions();
+  }
+
+  // Méthode pour filtrer les ordonnances
+  filterPrescriptions(): PendingPrescription[] {
+    return this.pendingPrescriptions.filter(prescription => {
+      const matchDoctor = this.filterDoctorName ?
+        prescription.doctorName.toLowerCase().includes(this.filterDoctorName.toLowerCase()) : true;
+      const matchPatient = this.filterPatientName ?
+        prescription.patientName.toLowerCase().includes(this.filterPatientName.toLowerCase()) : true;
+      return matchDoctor && matchPatient;
+    });
   }
 }

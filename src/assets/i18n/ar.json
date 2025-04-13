@@ -1,4 +1,57 @@
 {
+  "about": {
+    "title": "حول لاباس",
+    "description": "لاباس هي منصة صحية رقمية مبتكرة تربط جميع الأطراف في النظام الصحي التونسي. يسهل حلنا التواصل بين المرضى والأطباء والصيادلة وأخصائيي العلاج الطبيعي والمختبرات والمستشفيات لتنسيق أفضل للرعاية وتجربة محسنة للمريض.",
+    "forDoctors": "للأطباء",
+    "forPharmacists": "للصيادلة",
+    "forPatients": "للمرضى",
+    "forLabs": "للمختبرات",
+    "forHospitals": "للمستشفيات",
+    "doctorFeatures": {
+      "patientManagement": "إدارة المرضى",
+      "ePrescription": "وصفة طبية إلكترونية آمنة",
+      "profileManagement": "إدارة الملف الطبي"
+    },
+    "pharmacistFeatures": {
+      "prescriptionManagement": "إدارة الوصفات الطبية",
+      "medicationTracking": "تتبع الأدوية",
+      "prescriptionValidation": "التحقق من الوصفات الطبية"
+    },
+    "patientFeatures": {
+      "prescriptionAccess": "الوصول إلى الوصفات الطبية",
+      "medicalHistory": "السجل الطبي",
+      "treatmentTracking": "تتبع العلاج"
+    },
+    "labFeatures": {
+      "testManagement": "إدارة الفحوصات الطبية",
+      "analysisTracking": "تتبع التحاليل",
+      "patientTestHistory": "سجل فحوصات المريض"
+    },
+    "hospitalFeatures": {
+      "serviceCoordination": "تنسيق الخدمات",
+      "patientRecords": "إدارة سجلات المرضى",
+      "medicalAdmin": "الإدارة الطبية"
+    },
+    "doctorsDescription": "منصة متكاملة لإدارة عيادتك الطبية وتنظيم مواعيدك ومتابعة مرضاك بكفاءة عالية.",
+    "pharmacistsDescription": "نظام متطور لإدارة الصيدلية ومتابعة المخزون والوصفات الطبية بشكل فعال.",
+    "patientsDescription": "وصول سهل وآمن لسجلاتك الطبية ووصفاتك ومواعيدك في مكان واحد.",
+    "labsDescription": "لوحة تحكم شاملة لإدارة التحاليل الطبية.",
+    "hospitalsDescription": "تحسين إدارة مؤسستك الصحية."
+  },
+  "ai": {
+    "assistant": {
+      "title": "مساعد لابس الذكي",
+      "poweredBy": "مدعوم من Google Gemini",
+      "description": "هل تحتاج إلى مساعدة أو معلومات حول منصة لابس أو الصحة بشكل عام؟ اسأل هنا!",
+      "questionLabel": "سؤالك:",
+      "questionPlaceholder": "مثال: كيف يمكنني عرض وصفاتي الطبية السابقة؟",
+      "promptHelp": "أدخل سؤالك واضغط على إرسال.",
+      "sendButton": "إرسال",
+      "analyzing": "جاري التحليل...",
+      "errorPrefix": "عذراً!",
+      "responseTitle": "رد المساعد:"
+    }
+  },
   "commonPages": {
     "home": "الرئيسية",
     "login": "تسجيل الدخول",
@@ -150,7 +203,8 @@
     "prescribedBy": "وصفها",
     "viewAllPrescriptions": "عرض جميع الوصفات الطبية",
     "manageAppointments": "إدارة مواعيدي",
-    "viewCompleteHistory": "عرض السجل الكامل"
+    "viewCompleteHistory": "عرض السجل الكامل",
+    "description": "إدارة مواعيدك ووصفاتك الطبية وسجلك الطبي بسهولة."
   },
   "doctor": {
     "todayAppointments": "مواعيد اليوم",
@@ -163,7 +217,8 @@
     "viewAllPrescriptions": "عرض جميع الوصفات الطبية",
     "recentPatients": "المرضى الأخيرون",
     "viewAllPatients": "عرض جميع المرضى",
-    "patientDetails": "التفاصيل"
+    "patientDetails": "التفاصيل",
+    "description": "إدارة المواعيد والوصفات الطبية ومتابعة المرضى بكفاءة."
   },
   "pharmacist": {
     "pendingPrescriptions": "الوصفات الطبية المعلقة",
@@ -216,30 +271,9 @@
     "status": "الحالة",
     "recentAdmissions": "حالات الدخول الأخيرة"
   },
-  "nurse": {
-    "title": "لوحة تحكم الممرض",
-    "careTasks": "مهام الرعاية",
-    "tasksToday": "مهام اليوم",
-    "patientsAssigned": "المرضى المعينين",
-    "currentlyAssigned": "المعينين حاليًا",
-    "medicationsToAdminister": "الأدوية",
-    "toAdministerToday": "للإعطاء اليوم",
-    "upcomingTasks": "المهام القادمة",
-    "noTasksScheduled": "لا توجد مهام مجدولة في الوقت الحالي.",
-    "taskTime": "الوقت",
-    "patient": "المريض",
-    "taskType": "النوع",
-    "room": "الغرفة",
-    "priority": "الأولوية",
-    "status": "الحالة",
-    "actions": "الإجراءات",
-    "complete": "إكمال",
-    "viewDetails": "تفاصيل",
-    "viewAllTasks": "عرض جميع المهام",
-    "assignedPatients": "المرضى المعينين"
-  },
+
   "cnam": {
-    "title": "لوحة تحكم CNAM",
+    "title": "حقوق الاسترجاع",
     "pendingReimbursements": "التعويضات المعلقة",
     "waitingForApproval": "في انتظار الموافقة",
     "processedClaims": "المطالبات المعالجة",
@@ -260,25 +294,77 @@
     "viewDetails": "تفاصيل",
     "viewAllClaims": "عرض جميع المطالبات"
   },
-  "about": {
-    "title": "عن LABESS",
-    "description": "لابس هو حل مبتكر يبسط إدارة السجلات الطبية ويسهل التواصل بين المرضى والأطباء والصيادلة.",
-    "forDoctors": "للأطباء",
-    "doctorsDescription": "إدارة المرضى وسجلاتهم الطبية بكفاءة",
-    "forPharmacists": "للصيادلة",
-    "pharmacistsDescription": "معالجة الوصفات الطبية وإدارة المخزون بسهولة",
-    "forPatients": "للمرضى",
-    "patientsDescription": "الوصول إلى سجلاتك الطبية والوصفات الطبية بكل سهولة"
-  },
   "language": {
     "french": "الفرنسية",
     "english": "الإنجليزية",
     "arabic": "العربية"
   },
+  "about": {
+    "title": "حول لابس",
+    "description": "لابس هي منصة صحية رقمية مبتكرة تربط جميع الأطراف في النظام الصحي التونسي. يسهل حلنا التواصل بين المرضى والأطباء والصيادلة وأخصائيي العلاج الطبيعي والمختبرات والمستشفيات لتنسيق أفضل للرعاية وتجربة محسنة للمريض.",
+    "forDoctors": "للأطباء",
+    "forPharmacists": "للصيادلة",
+    "forPatients": "للمرضى",
+    "forLabs": "للمختبرات",
+    "forHospitals": "للمستشفيات",
+    "doctorFeatures": {
+      "patientManagement": "إدارة المرضى",
+      "ePrescription": "وصفة طبية إلكترونية آمنة",
+      "profileManagement": "إدارة الملف الطبي"
+    },
+    "pharmacistFeatures": {
+      "prescriptionManagement": "إدارة الوصفات الطبية",
+      "medicationTracking": "تتبع الأدوية",
+      "prescriptionValidation": "التحقق من الوصفات الطبية"
+    },
+    "patientFeatures": {
+      "prescriptionAccess": "الوصول إلى الوصفات الطبية",
+      "medicalHistory": "السجل الطبي",
+      "treatmentTracking": "تتبع العلاج"
+    },
+    "labFeatures": {
+      "testManagement": "إدارة الفحوصات الطبية",
+      "analysisTracking": "تتبع التحاليل",
+      "patientTestHistory": "سجل فحوصات المريض"
+    },
+    "hospitalFeatures": {
+      "serviceCoordination": "تنسيق الخدمات",
+      "patientRecords": "إدارة سجلات المرضى",
+      "medicalAdmin": "الإدارة الطبية"
+    },
+    "doctorsDescription": "منصة متكاملة لإدارة عيادتك الطبية وتنظيم مواعيدك ومتابعة مرضاك بكفاءة عالية.",
+    "pharmacistsDescription": "نظام متطور لإدارة الصيدلية ومتابعة المخزون والوصفات الطبية بشكل فعال.",
+    "patientsDescription": "وصول سهل وآمن لسجلاتك الطبية ووصفاتك ومواعيدك في مكان واحد.",
+    "labsDescription": "لوحة تحكم شاملة لإدارة التحاليل الطبية.",
+    "hospitalsDescription": "تحسين إدارة مؤسستك الصحية."
+    
+  },
+  "ai": {
+    "assistant": {
+      "title": "مساعد لابس الذكي",
+      "poweredBy": "مدعوم من Google Gemini",
+      "description": "هل تحتاج إلى مساعدة أو معلومات حول منصة لابس أو الصحة بشكل عام؟ اسأل هنا!",
+      "questionLabel": "سؤالك:",
+      "questionPlaceholder": "مثال: كيف يمكنني عرض وصفاتي الطبية السابقة؟",
+      "promptHelp": "أدخل سؤالك واضغط على إرسال.",
+      "sendButton": "إرسال",
+      "analyzing": "جاري التحليل...",
+      "errorPrefix": "عذراً!",
+      "responseTitle": "رد المساعد:"
+    }
+  },
   "commonPages": {
     "quickLinks": "روابط سريعة",
     "contact": "اتصل بنا",
-    "allRightsReserved": "جميع الحقوق محفوظة"
+    "allRightsReserved": "جميع الحقوق محفوظة",
+    "home": "الرئيسية",
+    "aboutUs": "من نحن",
+    "services": "خدماتنا",
+    "news": "الأخبار",
+    "blog": "المدونة",
+    "faq": "الأسئلة الشائعة",
+    "careers": "الوظائف",
+    "partners": "شركاؤنا"
   },
   "errors": {
     "notFound": "الصفحة غير موجودة",
@@ -311,15 +397,30 @@
     "language": "اللغة",
     "theme": "المظهر",
     "darkMode": "الوضع الداكن",
-    "lightMode": "الوضع الفاتح"
+    "lightMode": "الوضع الفاتح",
+    "search": "بحث",
+    "profile": "الملف الشخصي",
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج",
+    "welcome": "مرحباً بك"
   },
   "footer": {
     "copyright": "© 2024 LABESS. جميع الحقوق محفوظة",
     "terms": "شروط الاستخدام",
     "privacy": "سياسة الخصوصية",
     "contact": "اتصل بنا",
-    "about": "عن الموقع",
-    "help": "المساعدة"
+    "aboutUs": "عن الموقع",
+    "help": "المساعدة",
+    "followUs": "تابعنا",
+    "newsletter": "النشرة الإخبارية",
+    "subscribeNewsletter": "اشترك في نشرتنا الإخبارية",
+    "socialMedia": "وسائل التواصل الاجتماعي",
+    "address": "العنوان",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "quickLinks":"روابط سريعة",
+    "home": "الرئيسية",
+    "services": "خدماتنا"
   },
   "preinscription": {
     "title": "التسجيل المسبق",
